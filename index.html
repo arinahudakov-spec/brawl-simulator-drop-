@@ -119,12 +119,12 @@
         .side-btn:active { transform: skewX(-10deg) translateY(3px); box-shadow: none; }
         .side-btn span { transform: skewX(10deg); font-size: 9px; color: #fff; text-transform: uppercase; text-shadow: 1.5px 1.5px 0 #000; text-align: center; line-height: 10px; }
         
-        .btn-shop { background: linear-gradient(180deg, #ffeb3b 0%, #ff9800 100%); box-shadow: 0 4px 0 #c65100; }
-        .btn-ad { background: linear-gradient(180deg, #e040fb 0%, #6a1b9a 100%); box-shadow: 0 4px 0 #4a148c; }
+        /* Обновили цвет кнопки Магазин на фирменный фиолетовый */
+        .btn-shop-menu { background: linear-gradient(180deg, #e040fb 0%, #6a1b9a 100%); box-shadow: 0 4px 0 #4a148c; }
         .btn-brawlers { background: linear-gradient(180deg, #4fc3f7 0%, #0288d1 100%); box-shadow: 0 4px 0 #01579b; }
         .btn-blue { background: linear-gradient(180deg, #7986cb 0%, #3f51b5 100%); box-shadow: 0 4px 0 #1a237e; }
 
-        /* ---------------- [ЦЕНТР: СЦЕНА И БОЕЦ (СДВИнут ВЛЕВО)] ---------------- */
+        /* ---------------- [ЦЕНТР: СЦЕНА И БОЕЦ] ---------------- */
         
         .center-stage {
             position: absolute; bottom: 20%; left: 24%;
@@ -305,7 +305,7 @@
             -webkit-text-stroke: 0.5px #fff; text-transform: uppercase;
         }
 
-        /* ---------------- [ДОБАВЛЕННЫЕ СТИЛИ ШАГА 1 + ОПТИМИЗАЦИЯ СЕТКИ] ---------------- */
+        /* ---------------- [СТИЛИ СЕТКИ БОЙЦОВ (3 КОЛОНКИ / КВАДРАТЫ)] ---------------- */
         #brawlers-screen {
             position: absolute;
             top: 0;
@@ -321,7 +321,7 @@
         #brawlers-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* Изменено: Строго 3 колонки */
-            gap: 20px; /* Изменено: Увеличенный gap, чтобы карточки не слипались */
+            gap: 20px; /* Изменено: Увеличенный gap */
             padding: 20px;
             max-height: 80vh;
             overflow-y: auto;
@@ -333,10 +333,9 @@
             text-align: center; display: flex; flex-direction: column; align-items: center;
             justify-content: center;
             box-shadow: 0 4px 0 rgba(0,0,0,0.4);
-            aspect-ratio: 1 / 1; /* Изменено: Карточки стали идеально квадратными */
+            aspect-ratio: 1 / 1; /* Изменено: Карточки стали квадратными */
         }
         
-        /* Изменено: Рамки редкостей по всему контуру карточки */
         .brawler-card-item.rare { border: 3px solid #54f03a; }
         .brawler-card-item.epic { border: 3px solid #b125e1; }
         .brawler-card-item.mythic { border: 3px solid #ff3333; }
@@ -357,6 +356,33 @@
             opacity: 0.4;
             filter: grayscale(50%);
         }
+
+        /* ---------------- [НОВОЕ: СТИЛИ МОДАЛЬНОГО ОКНА МАГАЗИНА] ---------------- */
+        #shop-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #152238 0%, #08101f 100%);
+            z-index: 45; display: none !important; flex-direction: column; padding: 15px;
+            overflow-y: auto;
+        }
+        .shop-section-title {
+            color: #fff; text-shadow: 2px 2px 0 #000; font-size: 16px;
+            margin: 15px 0 8px 20px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .shop-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+            padding: 0 20px; margin-bottom: 10px;
+        }
+        .shop-card-item {
+            background: linear-gradient(180deg, #1b263b 0%, #111a2e 100%);
+            border: 3px solid #000; border-radius: 12px; padding: 8px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            align-items: center; box-shadow: 0 5px 0 rgba(0,0,0,0.5);
+            cursor: pointer; aspect-ratio: 1 / 1.15; transition: transform 0.05s;
+        }
+        .shop-card-item:active { transform: scale(0.96); }
+        .shop-card-give { font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; text-align: center; }
+        .shop-card-icon { font-size: 36px; margin: 2px 0; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4)); }
+        .shop-card-cost { font-size: 12px; color: #ffce20; text-shadow: 1.5px 1.5px 0 #000; background: rgba(0,0,0,0.3); padding: 2px 10px; border-radius: 10px; border: 1.5px solid #000; }
     </style>
 </head>
 <body>
@@ -382,8 +408,7 @@
         </div>
 
         <div class="sidebar-left">
-            <div class="side-btn btn-shop" onclick="buyDropCard('starr', 10)"><span>Купить<br>Drop (10💎)</span></div>
-            <div class="side-btn btn-ad" onclick="watchAdTest()"><span>Смотреть<br>Рекламу</span></div>
+            <div class="side-btn btn-shop-menu" onclick="openShopScreen()"><span>Магазин</span></div>
             <div class="side-btn btn-brawlers" onclick="openBrawlersScreen()"><span>Бойцы</span></div>
         </div>
 
@@ -448,12 +473,57 @@
             </div>
         </div>
 
-        <div id="brawlers-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column;">
+        <div id="brawlers-screen">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
                 <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
                 <div id="brawlers-counter" style="font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #000; text-transform: uppercase;">0 из 104 БОЙЦОВ</div>
             </div>
             <div id="brawlers-grid"></div>
+        </div>
+
+        <div id="shop-screen">
+            <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
+                <button onclick="closeShopScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
+                <div style="font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #000; text-transform: uppercase;">РЕСУРСНЫЙ МАГАЗИН</div>
+            </div>
+            
+            <div class="shop-section-title">ПАК МОНЕТ (ЗА ГЕМЫ)</div>
+            <div class="shop-grid">
+                <div class="shop-card-item" onclick="exchangeCurrency('coins', 250, 'gems', 10)">
+                    <div class="shop-card-give">250 Монет</div>
+                    <div class="shop-card-icon">🪙</div>
+                    <div class="shop-card-cost">10 💎</div>
+                </div>
+                <div class="shop-card-item" onclick="exchangeCurrency('coins', 1000, 'gems', 30)">
+                    <div class="shop-card-give">1000 Монет</div>
+                    <div class="shop-card-icon">🪙</div>
+                    <div class="shop-card-cost">30 💎</div>
+                </div>
+                <div class="shop-card-item" onclick="exchangeCurrency('coins', 5000, 'gems', 120)">
+                    <div class="shop-card-give">5000 Монет</div>
+                    <div class="shop-card-icon">🪙</div>
+                    <div class="shop-card-cost">120 💎</div>
+                </div>
+            </div>
+
+            <div class="shop-section-title">ПАК КРИСТАЛЛОВ (ЗА МОНЕТЫ)</div>
+            <div class="shop-grid">
+                <div class="shop-card-item" onclick="exchangeCurrency('gems', 30, 'coins', 1500)">
+                    <div class="shop-card-give">30 Гемов</div>
+                    <div class="shop-card-icon">💎</div>
+                    <div class="shop-card-cost">1500 🪙</div>
+                </div>
+                <div class="shop-card-item" onclick="exchangeCurrency('gems', 80, 'coins', 3500)">
+                    <div class="shop-card-give">80 Гемов</div>
+                    <div class="shop-card-icon">💎</div>
+                    <div class="shop-card-cost">3500 🪙</div>
+                </div>
+                <div class="shop-card-item" onclick="exchangeCurrency('gems', 170, 'coins', 7000)">
+                    <div class="shop-card-give">170 Гемов</div>
+                    <div class="shop-card-icon">💎</div>
+                    <div class="shop-card-cost">7000 🪙</div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -532,7 +602,7 @@
             { name: "ЛЕГЕНДАРНЫЙ!", color: "#ffcc00", upChance: 0.00 }
         ];
 
-        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ BRAWL STARS (ВКЛЮЧАЯ НОВИНКИ 2026 ГОДА)
+        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ BRAWL STARS
         const poolBrawlers = [
             { id: "shelly", img: "Shelly", name: "ШЕЛЛИ", rarity: "rare" },
             { id: "colt", img: "Colt", name: "КОЛЬТ", rarity: "rare" },
@@ -640,10 +710,6 @@
             { id: "b12", img: "Max", name: "КВАНТ", rarity: "mythic" },
             { id: "b13", img: "Spike", name: "ГЕЛИОС", rarity: "legendary" }
         ];
-
-        let currentTier = 0;
-        let tapsLeft = 4;
-        let activeDropType = 'starr';
 
         function updateHUD() {
             document.getElementById('coins-val').innerText = coins;
@@ -813,7 +879,6 @@
         // НОВЫЕ ФУНКЦИИ ДЛЯ ОТКРЫТИЯ И ЗАКРЫТИЯ ОКНА БОЙЦОВ
         function openBrawlersScreen() {
             getAudioContext();
-            // Плавное переключение видимости через JS-инлайн стиль
             document.getElementById('brawlers-screen').style.setProperty('display', 'flex', 'important');
             renderBrawlersGrid();
         }
@@ -843,6 +908,43 @@
                     </div>
                 `;
             });
+        }
+
+        // ---------------- [НОВЫЕ ФУНКЦИИ ОКНА МАГАЗИНА] ----------------
+        function openShopScreen() {
+            getAudioContext();
+            document.getElementById('shop-screen').style.setProperty('display', 'flex', 'important');
+        }
+
+        function closeShopScreen() {
+            document.getElementById('shop-screen').style.setProperty('display', 'none', 'important');
+        }
+
+        // Логика конвертации и покупки внутри магазина
+        function exchangeCurrency(giveType, giveAmt, takeType, takeAmt) {
+            getAudioContext();
+            
+            // Проверка: Хватает ли валюты, которую мы ОТДАЕМ (takeType)
+            if (takeType === 'gems' && gems < takeAmt) {
+                alert("Недостаточно гемов! Жми 'ИГРАТЬ' для их фарма.");
+                return;
+            }
+            if (takeType === 'coins' && coins < takeAmt) {
+                alert("Недостаточно монет! Наменяй их в магазине за гемы.");
+                return;
+            }
+
+            // Списываем ту валюту, которую отдаем
+            if (takeType === 'gems') gems -= takeAmt;
+            if (takeType === 'coins') coins -= takeAmt;
+
+            // Начисляем ту валюту, которую покупаем
+            if (giveType === 'coins') coins += giveAmt;
+            if (giveType === 'gems') gems += giveAmt;
+
+            updateHUD();
+            playSound('upgrade', 2);
+            alert("Обмен успешно совершен! Профиль обновлен.");
         }
 
         updateHUD();
