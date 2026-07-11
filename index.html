@@ -51,25 +51,36 @@
 
         /* ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ] ---------------- */
         
-        /* Профиль (Слева) */
+        /* Изменено: Новый аккуратный профиль по мотивам оригинала */
         .hud-profile {
             position: absolute; top: 12px; left: 15px;
-            display: flex; gap: 8px; z-index: 10;
+            display: flex; gap: 4px; z-index: 10;
             align-items: center;
+            pointer-events: none; /* Профиль полностью некликабельный */
+        }
+        .profile-level-badge {
+            width: 24px; height: 24px;
+            background: radial-gradient(circle, #2196f3 0%, #0d47a1 100%);
+            border: 2px solid #000; border-radius: 50%;
+            color: #fff; font-size: 11px;
+            display: flex; align-items: center; justify-content: center;
+            text-shadow: 1px 1px 0 #000;
+            z-index: 12; margin-right: -8px;
         }
         .avatar-box {
-            width: 42px; height: 42px;
+            width: 44px; height: 44px;
             background: #2a1b4e;
             border: 3px solid #000;
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             transform: skewX(-10deg);
             box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+            z-index: 11;
         }
         .avatar-img { width: 90%; height: 90%; object-fit: contain; transform: skewX(10deg); }
         
-        .profile-text { display: flex; flex-direction: column; gap: 1px; }
-        .username { font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; letter-spacing: 0.5px; }
+        .profile-text { display: flex; flex-direction: column; gap: 2px; margin-left: 4px; }
+        .username { font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; letter-spacing: 0.5px; text-transform: uppercase; }
         
         .trophies-badge {
             background: linear-gradient(180deg, #ff9800 0%, #e65100 100%);
@@ -77,7 +88,8 @@
             padding: 1px 8px; font-size: 11px;
             color: #fff; text-shadow: 1.5px 1.5px 0 #000;
             transform: skewX(-10deg);
-            display: flex; align-items: center; gap: 3px;
+            display: flex; align-items: center; gap: 4px;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
         }
 
         /* Единая Капсула Ресурсов (Справа) */
@@ -119,7 +131,6 @@
         .side-btn:active { transform: skewX(-10deg) translateY(3px); box-shadow: none; }
         .side-btn span { transform: skewX(10deg); font-size: 9px; color: #fff; text-transform: uppercase; text-shadow: 1.5px 1.5px 0 #000; text-align: center; line-height: 10px; }
         
-        /* Обновили цвет кнопки Магазин на фирменный фиолетовый */
         .btn-shop-menu { background: linear-gradient(180deg, #e040fb 0%, #6a1b9a 100%); box-shadow: 0 4px 0 #4a148c; }
         .btn-brawlers { background: linear-gradient(180deg, #4fc3f7 0%, #0288d1 100%); box-shadow: 0 4px 0 #01579b; }
         .btn-blue { background: linear-gradient(180deg, #7986cb 0%, #3f51b5 100%); box-shadow: 0 4px 0 #1a237e; }
@@ -241,6 +252,7 @@
         
         .starr-star-icon { font-size: 75px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .starr-title { font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 0 #000; }
+        .starr-drop-overlay .starr-title { font-size: 26px !important; margin-top: 15px !important; }
         .starr-taps { font-size: 13px; color: #aaa; margin-top: 5px; }
 
         /* Экран выигрыша */
@@ -281,21 +293,13 @@
             display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
         
-        .battle-group { display: flex; align-items: center; gap: 8px; width: 62%; justify-content: flex-end; }
-        
-        .mode-selector {
-            background: linear-gradient(180deg, #e64a19 0%, #bf360c 100%);
-            border: 2.5px solid #000; border-radius: 8px;
-            flex-grow: 1; height: 46px; transform: skewX(-10deg);
-            box-shadow: 0 4px 0 #5c1b00;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .mode-title { font-size: 12px; color: #fff; text-shadow: 1.5px 1.5px 0 #000; transform: skewX(10deg); text-transform: uppercase; }
+        /* Изменено: Убрали блок селектора режима рекламы, оставили место под кнопку */
+        .battle-group { display: flex; align-items: center; width: 62%; justify-content: flex-end; }
         
         .btn-play-main {
             background: linear-gradient(180deg, #fff59d 0%, #fbc02d 100%);
             border: 2.5px solid #000; border-radius: 10px;
-            width: 130px; height: 52px; cursor: pointer;
+            width: 160px; height: 52px; cursor: pointer; /* Изменено: Слегка увеличили ширину для солидности */
             transform: skewX(-10deg); box-shadow: 0 5px 0 #f57f17;
             display: flex; align-items: center; justify-content: center;
         }
@@ -320,8 +324,8 @@
 
         #brawlers-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Изменено: Строго 3 колонки */
-            gap: 20px; /* Изменено: Увеличенный gap */
+            grid-template-columns: repeat(3, 1fr); /* Строго 3 колонки */
+            gap: 20px; /* Увеличенный gap */
             padding: 20px;
             max-height: 80vh;
             overflow-y: auto;
@@ -333,7 +337,7 @@
             text-align: center; display: flex; flex-direction: column; align-items: center;
             justify-content: center;
             box-shadow: 0 4px 0 rgba(0,0,0,0.4);
-            aspect-ratio: 1 / 1; /* Изменено: Карточки стали квадратными */
+            aspect-ratio: 1 / 1; /* Карточки стали квадратными */
         }
         
         .brawler-card-item.rare { border: 3px solid #54f03a; }
@@ -357,7 +361,7 @@
             filter: grayscale(50%);
         }
 
-        /* ---------------- [НОВОЕ: СТИЛИ МОДАЛЬНОГО ОКНА МАГАЗИНА] ---------------- */
+        /* ---------------- [СТИЛИ МОДАЛЬНОГО ОКНА МАГАЗИНА] ---------------- */
         #shop-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, #152238 0%, #08101f 100%);
@@ -374,7 +378,7 @@
         }
         .shop-card-item {
             background: linear-gradient(180deg, #1b263b 0%, #111a2e 100%);
-            border: 3px solid #000; border-radius: 12px; padding: 8px;
+            border: 3.5px solid #000; border-radius: 12px; padding: 8px;
             display: flex; flex-direction: column; justify-content: space-between;
             align-items: center; box-shadow: 0 5px 0 rgba(0,0,0,0.5);
             cursor: pointer; aspect-ratio: 1 / 1.15; transition: transform 0.05s;
@@ -391,12 +395,13 @@
         <div class="bg-pattern"></div>
 
         <div class="hud-profile">
+            <div class="profile-level-badge">37</div>
             <div class="avatar-box">
                 <img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Shelly.png" class="avatar-img" alt="Ава">
             </div>
             <div class="profile-text">
-                <div class="username">АРИНА</div>
-                <div class="trophies-badge">🏆 58426</div>
+                <div class="username">МАЙОНЕЗА</div>
+                <div class="trophies-badge">🏆 0</div>
             </div>
         </div>
 
@@ -442,10 +447,6 @@
             </div>
             
             <div class="battle-group">
-                <div class="mode-slot-test" style="display:none;" id="farm-node-legacy" onclick="addFreeMoney()"></div>
-                <div class="mode-selector">
-                    <div class="mode-title">РЕКЛАМНЫЙ ФАРМ</div>
-                </div>
                 <button class="btn-play-main" onclick="playButtonAction()">
                     <span>ИГРАТЬ</span>
                 </button>
@@ -473,7 +474,7 @@
             </div>
         </div>
 
-        <div id="brawlers-screen">
+        <div id="brawlers-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column;">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
                 <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
                 <div id="brawlers-counter" style="font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #000; text-transform: uppercase;">0 из 104 БОЙЦОВ</div>
@@ -613,7 +614,7 @@
             { id: "barley", img: "Barley", name: "БАРЛИ", rarity: "rare" },
             { id: "poco", img: "Poco", name: "ПОКО", rarity: "rare" },
             { id: "rosa", img: "Rosa", name: "РОЗА", rarity: "rare" },
-            { id: "jessie", img: "Jessie", name: "ДДЕССИ", rarity: "rare" },
+            { id: "jessie", img: "Jessie", name: "ДЕССИ", rarity: "rare" },
             { id: "dynamike", img: "Dynamike", name: "ДИНАМАЙК", rarity: "rare" },
             { id: "tick", img: "Tick", name: "ТИК", rarity: "rare" },
             { id: "8bit", img: "8-Bit", name: "8-БИТ", rarity: "rare" },
@@ -710,6 +711,10 @@
             { id: "b12", img: "Max", name: "КВАНТ", rarity: "mythic" },
             { id: "b13", img: "Spike", name: "ГЕЛИОС", rarity: "legendary" }
         ];
+
+        let currentTier = 0;
+        let tapsLeft = 4;
+        let activeDropType = 'starr';
 
         function updateHUD() {
             document.getElementById('coins-val').innerText = coins;
