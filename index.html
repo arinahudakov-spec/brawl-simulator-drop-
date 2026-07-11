@@ -5,117 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brawl Stars Modern Simulator</title>
     <style>
-        /* Подключаем оригинальный бравл-шрифт */
         @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 
-        * {
-            box-sizing: border-box;
-            font-family: 'Lilita One', sans-serif;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+        * { box-sizing: border-box; font-family: 'Lilita One', sans-serif; -webkit-user-select: none; user-select: none; }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0; width: 100%; height: 100%;
             background: #050a12;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
 
-        /* Адаптивный контейнер под экран телефона (16:9) */
         .game-wrapper {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: 177.78vh; /* Ограничение 16:9 */
-            max-height: 56.25vw;
+            width: 100vw; height: 100vh;
+            max-width: 177.78vh; max-height: 56.25vw;
+            min-height: 300px; /* Фикс для предотвращения черного экрана */
             background: radial-gradient(circle at 50% 50%, #46aa34 0%, #13420c 100%);
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
 
-        /* Полупрозрачный фоновый паттерн из черепков/звёзд */
         .bg-pattern {
-            position: absolute;
-            width: 100%; height: 100%;
+            position: absolute; width: 100%; height: 100%;
             opacity: 0.06;
             background-image: url('https://wsrv.nl/?url=cdn.brawlify.com/gamemode/Showdown.png');
-            background-size: 80px;
-            pointer-events: none;
+            background-size: 80px; pointer-events: none;
         }
 
-        /* ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ] ---------------- */
-        
-        /* Профиль (Слева) */
-        .hud-profile {
-            position: absolute; top: 12px; left: 15px;
-            display: flex; gap: 8px; z-index: 10;
-            align-items: center;
-        }
-        .avatar-box {
-            width: 42px; height: 42px;
-            background: #2a1b4e;
-            border: 3px solid #000;
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            transform: skewX(-10deg);
-            box-shadow: 0 3px 0 rgba(0,0,0,0.3);
-        }
+        /* HUD STYLES */
+        .hud-profile { position: absolute; top: 12px; left: 15px; display: flex; gap: 8px; z-index: 10; align-items: center; }
+        .avatar-box { width: 42px; height: 42px; background: #2a1b4e; border: 3px solid #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; transform: skewX(-10deg); box-shadow: 0 3px 0 rgba(0,0,0,0.3); }
         .avatar-img { width: 90%; height: 90%; object-fit: contain; transform: skewX(10deg); }
-        
         .profile-text { display: flex; flex-direction: column; gap: 1px; }
         .username { font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; letter-spacing: 0.5px; }
-        
-        .trophies-badge {
-            background: linear-gradient(180deg, #ff9800 0%, #e65100 100%);
-            border: 2px solid #000; border-radius: 6px;
-            padding: 1px 8px; font-size: 11px;
-            color: #fff; text-shadow: 1.5px 1.5px 0 #000;
-            transform: skewX(-10deg);
-            display: flex; align-items: center; gap: 3px;
-        }
+        .trophies-badge { background: linear-gradient(180deg, #ff9800 0%, #e65100 100%); border: 2px solid #000; border-radius: 6px; padding: 1px 8px; font-size: 11px; color: #fff; text-shadow: 1.5px 1.5px 0 #000; transform: skewX(-10deg); display: flex; align-items: center; gap: 3px; }
 
-        /* Единая Капсула Ресурсов (Справа) */
-        .hud-resources {
-            position: absolute; top: 12px; right: 15px;
-            display: flex; align-items: center;
-            background: rgba(0, 0, 0, 0.65);
-            border: 2.5px solid #000;
-            border-radius: 20px;
-            padding: 3px 12px; gap: 16px; z-index: 10;
-            box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
-        }
-        .res-item {
-            display: flex; align-items: center; gap: 5px;
-            font-size: 14px; text-shadow: 2px 2px 0 #000;
-        }
-        .res-pp { color: #ff52ba; }
-        .res-coins { color: #ffce20; }
-        .res-gems { color: #4eff7c; }
-        
-        .btn-burger {
-            background: #2e374d; border: 2px solid #000; border-radius: 5px;
-            color: #fff; font-size: 12px; padding: 2px 6px; cursor: pointer;
-        }
+        .hud-resources { position: absolute; top: 12px; right: 15px; display: flex; align-items: center; background: rgba(0, 0, 0, 0.65); border: 2.5px solid #000; border-radius: 20px; padding: 3px 12px; gap: 16px; z-index: 10; }
+        .res-item { display: flex; align-items: center; gap: 5px; font-size: 14px; text-shadow: 2px 2px 0 #000; }
+        .res-pp { color: #ff52ba; } .res-coins { color: #ffce20; } .res-gems { color: #4eff7c; }
+        .btn-burger { background: #2e374d; border: 2px solid #000; border-radius: 5px; color: #fff; font-size: 12px; padding: 2px 6px; cursor: pointer; }
 
-        /* ---------------- [HUD: БОКОВЫЕ САЙДБАРЫ] ---------------- */
-        
         .sidebar-left { position: absolute; left: 15px; top: 24%; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
         .sidebar-right { position: absolute; right: 15px; top: 32%; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
         
-        .side-btn {
-            width: 65px; height: 44px;
-            border: 2.5px solid #000; border-radius: 8px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; transform: skewX(-10deg);
-            box-shadow: 0 4px 0 #1a237e;
-            transition: transform 0.05s;
-        }
+        .side-btn { width: 65px; height: 44px; border: 2.5px solid #000; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transform: skewX(-10deg); box-shadow: 0 4px 0 #1a237e; transition: transform 0.05s; }
         .side-btn:active { transform: skewX(-10deg) translateY(3px); box-shadow: none; }
         .side-btn span { transform: skewX(10deg); font-size: 9px; color: #fff; text-transform: uppercase; text-shadow: 1.5px 1.5px 0 #000; text-align: center; line-height: 10px; }
         
@@ -124,218 +56,24 @@
         .btn-brawlers { background: linear-gradient(180deg, #4fc3f7 0%, #0288d1 100%); box-shadow: 0 4px 0 #01579b; }
         .btn-blue { background: linear-gradient(180deg, #7986cb 0%, #3f51b5 100%); box-shadow: 0 4px 0 #1a237e; }
 
-        /* ---------------- [ЦЕНТР: СЦЕНА И БОЕЦ (СДВИнут ВЛЕВО)] ---------------- */
-        
-        .center-stage {
-            position: absolute; bottom: 20%; left: 24%;
-            transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center;
-            z-index: 2;
-        }
-        .character-podium {
-            width: 160px; height: 28px;
-            background: radial-gradient(rgba(0, 0, 0, 0.65) 0%, transparent 75%);
-            border-radius: 50%; margin-top: -25px;
-        }
-        .brawler-img-main {
-            height: 180px; object-fit: contain;
-            animation: idle-swim 2s ease-in-out infinite alternate;
-        }
-        .brawler-title-tag {
-            background: #7b1fa2; border: 2px solid #000; border-radius: 12px;
-            padding: 2px 12px; font-size: 11px; text-shadow: 1px 1px 0 #000;
-            margin-bottom: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
+        .center-stage { position: absolute; bottom: 20%; left: 24%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 2; }
+        .character-podium { width: 160px; height: 28px; background: radial-gradient(rgba(0, 0, 0, 0.65) 0%, transparent 75%); border-radius: 50%; margin-top: -25px; }
+        .brawler-img-main { height: 180px; object-fit: contain; animation: idle-swim 2s ease-in-out infinite alternate; }
+        .brawler-title-tag { background: #7b1fa2; border: 2px solid #000; border-radius: 12px; padding: 2px 12px; font-size: 11px; text-shadow: 1px 1px 0 #000; margin-bottom: 5px; }
 
-        @keyframes idle-swim {
-            0% { transform: translateY(0) scaleX(1); }
-            100% { transform: translateY(-6px) scaleX(1.03); }
-        }
+        @keyframes idle-swim { 0% { transform: translateY(0) scaleX(1); } 100% { transform: translateY(-6px) scaleX(1.03); } }
 
-        /* ---------------- [ГЛАВНЫЙ ЭКРАН: КАРТОЧКИ ДРОПОВ] ---------------- */
-        
-        .drop-cards-container {
-            position: absolute;
-            top: 45%;
-            left: 64%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            gap: 20px;
-            z-index: 5;
-        }
-        .drop-card {
-            width: 155px;
-            height: 195px;
-            background: linear-gradient(180deg, #00c6ff 0%, #0072ff 100%);
-            border: 3.5px solid #000;
-            border-radius: 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 8px 0 #0044aa, 0 10px 15px rgba(0,0,0,0.5);
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-        .drop-card:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #0044aa, 0 5px 10px rgba(0,0,0,0.5);
-        }
-        .drop-card.chaos {
-            background: linear-gradient(180deg, #ff4b1f 0%, #ff1f4b 100%);
-            box-shadow: 0 8px 0 #990011, 0 10px 15px rgba(0,0,0,0.5);
-        }
-        .drop-card.chaos:active {
-            box-shadow: 0 4px 0 #990011, 0 5px 10px rgba(0,0,0,0.5);
-        }
-        .drop-card-title {
-            width: 100%;
-            background: rgba(0,0,0,0.3);
-            text-align: center;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #fff;
-            text-shadow: 2px 2px 0 #000;
-            border-bottom: 3.5px solid #000;
-            text-transform: uppercase;
-        }
-        .drop-card-img {
-            font-size: 55px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
-            margin-top: 5px;
-            animation: drop-float 1.8s ease-in-out infinite alternate;
-        }
-        @keyframes drop-float {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
-        }
-        .drop-card-price {
-            width: 100%;
-            background: #191f2e;
-            border-top: 3.5px solid #000;
-            text-align: center;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #ffce20;
-            text-shadow: 2px 2px 0 #000;
-        }
+        .drop-cards-container { position: absolute; top: 45%; left: 64%; transform: translate(-50%, -50%); display: flex; gap: 20px; z-index: 5; }
+        .drop-card { width: 155px; height: 195px; background: linear-gradient(180deg, #00c6ff 0%, #0072ff 100%); border: 3.5px solid #000; border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; cursor: pointer; box-shadow: 0 8px 0 #0044aa; }
+        .drop-card.chaos { background: linear-gradient(180deg, #ff4b1f 0%, #ff1f4b 100%); box-shadow: 0 8px 0 #990011; }
+        .drop-card-title { width: 100%; background: rgba(0,0,0,0.3); text-align: center; padding: 6px 0; font-size: 14px; color: #fff; text-transform: uppercase; border-bottom: 3.5px solid #000; }
+        .drop-card-img { font-size: 55px; margin-top: 5px; }
+        .drop-card-price { width: 100%; background: #191f2e; border-top: 3.5px solid #000; text-align: center; padding: 6px 0; font-size: 14px; color: #ffce20; }
 
-        /* ---------------- [ИНТЕРФЕЙС STARR DROP (ВСПЛЫВАЮЩИЙ)] ---------------- */
-        
-        .starr-drop-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(6px);
-            z-index: 20; display: none; align-items: center; justify-content: center;
-            flex-direction: column;
-        }
-        .starr-sphere {
-            width: 140px; height: 140px; border-radius: 50%;
-            background: radial-gradient(circle, var(--drop-color) 20%, transparent 80%);
-            box-shadow: 0 0 50px var(--drop-color);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.1s;
-        }
-        .starr-sphere.bump { animation: sphere-bump 0.2s ease-out; }
-        @keyframes sphere-bump { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.85); } }
-        
-        .starr-star-icon { font-size: 75px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .starr-title { font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 0 #000; }
-        .starr-taps { font-size: 13px; color: #aaa; margin-top: 5px; }
-
-        /* Экран выигрыша */
-        .reward-screen {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #030710; z-index: 30; display: none;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
-        .sunburst-rays {
-            position: absolute; width: 200%; height: 200%;
-            background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.08) 0deg 15deg, transparent 15deg 30deg);
-            animation: rotate-rays 12s linear infinite; z-index: 1;
-        }
-        @keyframes rotate-rays { 100% { transform: rotate(360deg); } }
-        
-        .reward-content { z-index: 2; display: flex; flex-direction: column; align-items: center; }
-        .reward-icon-box {
-            width: 90px; height: 90px; background: rgba(0,0,0,0.5);
-            border: 3.5px solid var(--drop-color); border-radius: 16px;
-            box-shadow: 0 0 35px var(--drop-color);
-            display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
-        }
-        .reward-icon-box img { max-width: 80%; max-height: 80%; object-fit: contain; }
-        .reward-title { font-size: 24px; text-shadow: 2px 2px 0 #000; margin-bottom: 20px; }
-
-        /* ---------------- [HUD: НИЖНЯЯ ПАНЕЛЬ] ---------------- */
-        
-        .hud-bottom {
-            position: absolute; bottom: 12px; left: 15px; right: 15px;
-            display: flex; justify-content: space-between; align-items: flex-end; z-index: 10;
-        }
-        
-        .btn-brawlpass {
-            width: 110px; height: 46px;
-            background: linear-gradient(135deg, #ffb300 0%, #ff6f00 100%);
-            border: 2px solid #000; border-radius: 8px;
-            box-shadow: 0 4px 0 #b74100; transform: skewX(-10deg);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
-        
-        .battle-group { display: flex; align-items: center; gap: 8px; width: 62%; justify-content: flex-end; }
-        
-        .mode-selector {
-            background: linear-gradient(180deg, #e64a19 0%, #bf360c 100%);
-            border: 2.5px solid #000; border-radius: 8px;
-            flex-grow: 1; height: 46px; transform: skewX(-10deg);
-            box-shadow: 0 4px 0 #5c1b00;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .mode-title { font-size: 12px; color: #fff; text-shadow: 1.5px 1.5px 0 #000; transform: skewX(10deg); text-transform: uppercase; }
-        
-        .btn-play-main {
-            background: linear-gradient(180deg, #fff59d 0%, #fbc02d 100%);
-            border: 2.5px solid #000; border-radius: 10px;
-            width: 130px; height: 52px; cursor: pointer;
-            transform: skewX(-10deg); box-shadow: 0 5px 0 #f57f17;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .btn-play-main:active { transform: skewX(-10deg) translateY(4px); box-shadow: none; }
-        .btn-play-main span {
-            color: #000; font-size: 22px; transform: skewX(10deg);
-            -webkit-text-stroke: 0.5px #fff; text-transform: uppercase;
-        }
-
-        /* ---------------- [ДОБАВЛЕННЫЕ СТИЛИ ШАГА 1] ---------------- */
-        #brawlers-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, #1a365d 0%, #0a192f 100%);
-            z-index: 40;
-            display: none;
-            flex-direction: column;
-        }
-
-        #brawlers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-            padding: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .rare { border: 3px solid #54f03a; }
-        .epic { border: 3px solid #b125e1; }
-        .mythic { border: 3px solid #ff3333; }
-        .legendary { border: 3px solid #ffcc00; }
-
-        .locked {
-            opacity: 0.4;
-            filter: grayscale(50%);
-        }
+        #brawlers-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column; }
+        #brawlers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; padding: 20px; max-height: 80vh; overflow-y: auto; }
+        .rare { border: 3px solid #54f03a; } .epic { border: 3px solid #b125e1; } .mythic { border: 3px solid #ff3333; } .legendary { border: 3px solid #ffcc00; }
+        .locked { opacity: 0.4; filter: grayscale(50%); }
     </style>
 </head>
 <body>
@@ -344,9 +82,7 @@
         <div class="bg-pattern"></div>
 
         <div class="hud-profile">
-            <div class="avatar-box">
-                <img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Shelly.png" class="avatar-img" alt="Ава">
-            </div>
+            <div class="avatar-box"><img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Shelly.png" class="avatar-img"></div>
             <div class="profile-text">
                 <div class="username">АРИНА</div>
                 <div class="trophies-badge">🏆 58426</div>
@@ -354,22 +90,21 @@
         </div>
 
         <div class="hud-resources">
-            <div class="res-item res-pp">🧬 <span id="pp-val">7827</span></div>
-            <div class="res-item res-coins">🪙 <span id="coins-val">10797</span></div>
-            <div class="res-item res-gems">💎 <span id="gems-val">454</span></div>
+            <div class="res-item res-pp">🧬 <span id="pp-val">0</span></div>
+            <div class="res-item res-coins">🪙 <span id="coins-val">0</span></div>
+            <div class="res-item res-gems">💎 <span id="gems-val">0</span></div>
             <button class="btn-burger" onclick="resetProgress()">🔄</button>
         </div>
 
         <div class="sidebar-left">
             <div class="side-btn btn-shop" onclick="buyDropCard('starr', 10)"><span>Купить<br>Drop (10💎)</span></div>
             <div class="side-btn btn-ad" onclick="watchAdTest()"><span>Смотреть<br>Рекламу</span></div>
-            <!-- СВЯЗАЛИ КНОПКУ С ФУНКЦИЕЙ ОТКРЫТИЯ -->
             <div class="side-btn btn-brawlers" onclick="openBrawlersScreen()"><span>Бойцы</span></div>
         </div>
 
         <div class="center-stage">
             <div class="brawler-title-tag">ПОМИДОР 👑</div>
-            <img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Grom.png" class="brawler-img-main" alt="Grom">
+            <img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Grom.png" class="brawler-img-main">
             <div class="character-podium"></div>
         </div>
 
@@ -392,48 +127,31 @@
         </div>
 
         <div class="hud-bottom">
-            <div class="btn-brawlpass">
-                <span style="transform: skewX(10deg); font-size: 11px; text-shadow: 1.5px 1.5px 0 #000;">BRAWL PASS</span>
-            </div>
-            
+            <div class="btn-brawlpass"><span>BRAWL PASS</span></div>
             <div class="battle-group">
-                <div class="mode-slot-test" style="display:none;" id="farm-node-legacy" onclick="addFreeMoney()"></div>
-                <div class="mode-selector">
-                    <div class="mode-title">РЕКЛАМНЫЙ ФАРМ</div>
-                </div>
-                <button class="btn-play-main" onclick="playButtonAction()">
-                    <span>ИГРАТЬ</span>
-                </button>
+                <div class="mode-selector"><div class="mode-title">РЕКЛАМНЫЙ ФАРМ</div></div>
+                <button class="btn-play-main" onclick="playButtonAction()"><span>ИГРАТЬ</span></button>
             </div>
         </div>
 
         <div class="starr-drop-overlay" id="starr-overlay">
-            <div class="starr-sphere" id="starr-sphere-node" onclick="handleDropTap()" style="--drop-color: #54f03a;">
-                <div class="starr-star-icon">⭐</div>
-            </div>
-            <div class="starr-title" id="starr-title-text" style="color: #54f03a;">РЕДКИЙ!</div>
+            <div class="starr-sphere" id="starr-sphere-node" onclick="handleDropTap()">⭐</div>
+            <div class="starr-title" id="starr-title-text">РЕДКИЙ!</div>
             <div class="starr-taps" id="starr-taps-text">Тапов осталось: 4</div>
         </div>
 
         <div class="reward-screen" id="reward-screen-node">
-            <div class="sunburst-rays"></div>
             <div class="reward-content">
-                <div class="reward-icon-box" id="reward-box-border" style="--drop-color: #54f03a;">
-                    <img id="reward-img" src="" alt="Лут">
-                </div>
+                <div class="reward-icon-box" id="reward-box-border"><img id="reward-img"></div>
                 <div class="reward-title" id="reward-title-text">Награда</div>
-                <button class="btn-play-main" style="width: 160px; height: 44px;" onclick="closeRewardScreen()">
-                    <span style="font-size: 16px;">ЗАБРАТЬ</span>
-                </button>
+                <button class="btn-play-main" onclick="closeRewardScreen()">ЗАБРАТЬ</button>
             </div>
         </div>
 
-        <!-- КАРКАС ЭКРАНА БОЙЦОВ -->
-        <!-- СВЯЗАЛИ СТРЕЛОЧКУ С ФУНКЦИЕЙ ЗАКРЫТИЯ -->
-        <div id="brawlers-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column;">
+        <div id="brawlers-screen">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
-                <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
-                <div id="brawlers-counter" style="font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #000; text-transform: uppercase;">0 из 104 БОЙЦОВ</div>
+                <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px;">⬅</button>
+                <div id="brawlers-counter" style="font-size: 20px; color: #fff;">0 из 104 БОЙЦОВ</div>
             </div>
             <div id="brawlers-grid"></div>
         </div>
@@ -441,362 +159,239 @@
     </div>
 
     <script>
-        let audioCtx = null;
-        function getAudioContext() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            return audioCtx;
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            // Инициализация звука и данных
+            let audioCtx = null;
+            function getAudioContext() {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                return audioCtx;
+            }
 
-        function playSound(type, pitchLevel = 0) {
+            // [СЮДА ВСТАВЛЯЕМ ВСЮ ЛОГИКУ]
+            let coins = parseInt(localStorage.getItem('bs_m_coins')) || 10797;
+            let gems = parseInt(localStorage.getItem('bs_m_gems')) || 454;
+            let powerPoints = parseInt(localStorage.getItem('bs_m_pp')) || 7827;
+            let unlockedList = [];
             try {
-                const ctx = getAudioContext();
-                const now = ctx.currentTime;
-                let osc = ctx.createOscillator();
-                let gain = ctx.createGain();
-                
-                if (type === 'tap') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(250 + (pitchLevel * 40), now);
-                    osc.frequency.exponentialRampToValueAtTime(60, now + 0.1);
-                    gain.gain.setValueAtTime(0.25, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.1);
-                    osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.1);
-                } 
-                else if (type === 'upgrade') {
-                    let freq = 450 + (pitchLevel * 150);
-                    osc.type = 'square';
-                    osc.frequency.setValueAtTime(freq, now);
-                    osc.frequency.exponentialRampToValueAtTime(freq * 1.4, now + 0.25);
-                    gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.25);
-                    osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.26);
-                }
-                else if (type === 'legendary') {
-                    const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-                    notes.forEach((f, i) => {
-                        let o = ctx.createOscillator();
-                        let g = ctx.createGain();
-                        o.type = 'triangle'; o.frequency.setValueAtTime(f, now + i * 0.06);
-                        g.gain.setValueAtTime(0.15, now + i * 0.06);
-                        g.gain.linearRampToValueAtTime(0, now + i * 0.06 + 0.4);
-                        o.connect(g); g.connect(ctx.destination);
-                        o.start(now + i * 0.06); o.stop(now + i * 0.06 + 0.45);
-                    });
-                }
-            } catch(e) {}
-        }
+                let saved = localStorage.getItem('bs_m_list');
+                unlockedList = saved ? JSON.parse(saved) : [];
+            } catch(e) { unlockedList = []; }
 
-        // СИСТЕМА РЕСУРСОВ (STATE) + LOCALSTORAGE
-        let coins = parseInt(localStorage.getItem('bs_m_coins')) || 10797;
-        let gems = parseInt(localStorage.getItem('bs_m_gems')) || 454;
-        let powerPoints = parseInt(localStorage.getItem('bs_m_pp')) || 7827;
-        let unlockedList = JSON.parse(localStorage.getItem('bs_m_list')) || [];
+            const poolBrawlers = [
+                { id: "shelly", img: "Shelly", name: "ШЕЛЛИ", rarity: "rare" },
+                { id: "colt", img: "Colt", name: "КОЛЬТ", rarity: "rare" },
+                { id: "nita", img: "Nita", name: "НИТА", rarity: "rare" },
+                { id: "bull", img: "Bull", name: "БУЛЛ", rarity: "rare" },
+                { id: "brock", img: "Brock", name: "БРОК", rarity: "rare" },
+                { id: "elprimo", img: "El-Primo", name: "ЭЛЬ ПРИМО", rarity: "rare" },
+                { id: "barley", img: "Barley", name: "БАРЛИ", rarity: "rare" },
+                { id: "poco", img: "Poco", name: "ПОКО", rarity: "rare" },
+                { id: "rosa", img: "Rosa", name: "РОЗА", rarity: "rare" },
+                { id: "jessie", img: "Jessie", name: "ДЖЕССИ", rarity: "rare" },
+                { id: "dynamike", img: "Dynamike", name: "ДИНАМАЙК", rarity: "rare" },
+                { id: "tick", img: "Tick", name: "ТИК", rarity: "rare" },
+                { id: "8bit", img: "8-Bit", name: "8-БИТ", rarity: "rare" },
+                { id: "rico", img: "Rico", name: "РИКО", rarity: "rare" },
+                { id: "darryl", img: "Darryl", name: "ДЭРРИЛ", rarity: "rare" },
+                { id: "penny", img: "Penny", name: "ПЕННИ", rarity: "rare" },
+                { id: "carl", img: "Carl", name: "КАРЛ", rarity: "rare" },
+                { id: "jacky", img: "Jacky", name: "ДЖЕКИ", rarity: "rare" },
+                { id: "gus", img: "Gus", name: "ГАС", rarity: "rare" },
+                { id: "bo", img: "Bo", name: "БО", rarity: "rare" },
+                { id: "emz", img: "Emz", name: "ЭМЗ", rarity: "rare" },
+                { id: "stu", img: "Stu", name: "СТЮ", rarity: "rare" },
+                { id: "piper", img: "Piper", name: "ПАЙПЕР", rarity: "epic" },
+                { id: "pam", img: "Pam", name: "ПЭМ", rarity: "epic" },
+                { id: "frank", img: "Frank", name: "ФРЭНК", rarity: "epic" },
+                { id: "bibi", img: "Bibi", name: "БИБИ", rarity: "epic" },
+                { id: "bea", img: "Bea", name: "БИ", rarity: "epic" },
+                { id: "nani", img: "Nani", name: "НАНИ", rarity: "epic" },
+                { id: "edgar", img: "Edgar", name: "ЭДГАР", rarity: "epic" },
+                { id: "griff", img: "Griff", name: "ГРИФФ", rarity: "epic" },
+                { id: "grom", img: "Grom", name: "ГРОМ", rarity: "epic" },
+                { id: "bonnie", img: "Bonnie", name: "БОННИ", rarity: "epic" },
+                { id: "gale", img: "Gale", name: "ГЕЙЛ", rarity: "epic" },
+                { id: "colette", img: "Colette", name: "КОЛЕТТ", rarity: "epic" },
+                { id: "belle", img: "Belle", name: "БЕЛЛЬ", rarity: "epic" },
+                { id: "ash", img: "Ash", name: "ЭШ", rarity: "epic" },
+                { id: "lola", img: "Lola", name: "ЛОЛА", rarity: "epic" },
+                { id: "sam", img: "Sam", name: "СЭМ", rarity: "epic" },
+                { id: "mandy", img: "Mandy", name: "МЭНДИ", rarity: "epic" },
+                { id: "maisie", img: "Maisie", name: "МЭЙСИ", rarity: "epic" },
+                { id: "pearl", img: "Pearl", name: "ПЕРЛ", rarity: "epic" },
+                { id: "larry", img: "Larry-Lawrie", name: "ЛАРРИ", rarity: "epic" },
+                { id: "lawrie", img: "Larry-Lawrie", name: "ЛОРРИ", rarity: "epic" },
+                { id: "berry", img: "Berry", name: "БЕРРИ", rarity: "epic" },
+                { id: "angelo", img: "Angelo", name: "АНДЖЕЛО", rarity: "epic" },
+                { id: "hank", img: "Hank", name: "ХЭНК", rarity: "epic" },
+                { id: "charlie", img: "Charlie", name: "ШАРЛИ", rarity: "epic" },
+                { id: "juju", img: "Juju", name: "ДЖУДЖУ", rarity: "epic" },
+                { id: "mortis", img: "Mortis", name: "МОРТИС", rarity: "mythic" },
+                { id: "tara", img: "Tara", name: "ТАРА", rarity: "mythic" },
+                { id: "gene", img: "Gene", name: "ДЖИН", rarity: "mythic" },
+                { id: "max", img: "Max", name: "МАКС", rarity: "mythic" },
+                { id: "mrp", img: "Mr-P", name: "МИСТЕР П", rarity: "mythic" },
+                { id: "sprout", img: "Sprout", name: "СПРАУТ", rarity: "mythic" },
+                { id: "byron", img: "Byron", name: "БАЙРОН", rarity: "mythic" },
+                { id: "squeak", img: "Squeak", name: "СКВИК", rarity: "mythic" },
+                { id: "lou", img: "Lou", name: "ЛУ", rarity: "mythic" },
+                { id: "ruffs", img: "Ruffs", name: "ГАВС", rarity: "mythic" },
+                { id: "buzz", img: "Buzz", name: "БАЗЗ", rarity: "mythic" },
+                { id: "fang", img: "Fang", name: "ФЭНГ", rarity: "mythic" },
+                { id: "eve", img: "Eve", name: "ИВ", rarity: "mythic" },
+                { id: "janet", img: "Janet", name: "ДЖАНЕТ", rarity: "mythic" },
+                { id: "otis", img: "Otis", name: "ОТИС", rarity: "mythic" },
+                { id: "buster", img: "Buster", name: "БАСТЕР", rarity: "mythic" },
+                { id: "gray", img: "Gray", name: "ГРЭЙ", rarity: "mythic" },
+                { id: "rt", img: "R-T", name: "Р-Т", rarity: "mythic" },
+                { id: "willow", img: "Willow", name: "УИЛЛОУ", rarity: "mythic" },
+                { id: "doug", img: "Doug", name: "ДАГ", rarity: "mythic" },
+                { id: "chuck", img: "Chuck", name: "ЧАК", rarity: "mythic" },
+                { id: "mico", img: "Mico", name: "МИКО", rarity: "mythic" },
+                { id: "melodie", img: "Melodie", name: "МЕЛОДИ", rarity: "mythic" },
+                { id: "lily", img: "Lily", name: "ЛИЛИ", rarity: "mythic" },
+                { id: "clancy", img: "Clancy", name: "КЛЭНСИ", rarity: "mythic" },
+                { id: "moe", img: "Moe", name: "МО", rarity: "mythic" },
+                { id: "shade", img: "Grom", name: "ШЕЙД", rarity: "mythic" },
+                { id: "jup", img: "Otis", name: "ДЖАП", rarity: "mythic" },
+                { id: "finnegan", img: "Buster", name: "ФИННЕГАН", rarity: "mythic" },
+                { id: "copper", img: "Sam", name: "КОППЕР", rarity: "mythic" },
+                { id: "spike", img: "Spike", name: "СПАЙК", rarity: "legendary" },
+                { id: "crow", img: "Crow", name: "КРОУ", rarity: "legendary" },
+                { id: "leon", img: "Leon", name: "ЛЕОН", rarity: "legendary" },
+                { id: "sandy", img: "Sandy", name: "СЭНДИ", rarity: "legendary" },
+                { id: "amber", img: "Amber", name: "ЭМБЕР", rarity: "legendary" },
+                { id: "meg", img: "Meg", name: "МЕГ", rarity: "legendary" },
+                { id: "chester", img: "Chester", name: "ЧЕСТЕР", rarity: "legendary" },
+                { id: "cordelius", img: "Cordelius", name: "КОРДЕЛИУС", rarity: "legendary" },
+                { id: "kit", img: "Kit", name: "КИТ", rarity: "legendary" },
+                { id: "draco", img: "Draco", name: "ДРАКО", rarity: "legendary" },
+                { id: "surge", img: "Surge", name: "ВОЛЬТ", rarity: "legendary" },
+                { id: "kenji", img: "Kenji", name: "КЕНДЗИ", rarity: "legendary" },
+                { id: "ollie", img: "Buster", name: "ОЛЛИ", rarity: "legendary" },
+                { id: "b1", img: "Shelly", name: "КСЕНОН", rarity: "rare" },
+                { id: "b2", img: "Colt", name: "ВЕКТОР", rarity: "rare" },
+                { id: "b3", img: "Bull", name: "МАГМА", rarity: "epic" },
+                { id: "b4", img: "Brock", name: "БЛИЦ", rarity: "epic" },
+                { id: "b5", img: "Nita", name: "ОРИОН", rarity: "mythic" },
+                { id: "b6", img: "Poco", name: "КОСМО", rarity: "mythic" },
+                { id: "b7", img: "Rosa", name: "НЕОН", rarity: "legendary" },
+                { id: "b8", img: "Jessie", name: "КИБЕР", rarity: "legendary" },
+                { id: "b9", img: "Mortis", name: "ПЛАЗМА", rarity: "mythic" },
+                { id: "b10", img: "Tara", name: "АСТРА", rarity: "epic" },
+                { id: "b11", img: "Gene", name: "НЕБУЛА", rarity: "legendary" },
+                { id: "b12", img: "Max", name: "КВАНТ", rarity: "mythic" },
+                { id: "b13", img: "Spike", name: "ГЕЛИОС", rarity: "legendary" }
+            ];
 
-        const dropTiers = [
-            { name: "РЕДКИЙ!", color: "#54f03a", upChance: 0.45 },
-            { name: "СВЕРХРЕДКИЙ!", color: "#00a2ff", upChance: 0.25 },
-            { name: "ЭПИЧЕСКИЙ!", color: "#d100d1", upChance: 0.15 },
-            { name: "МИФИЧЕСКИЙ!", color: "#ff3333", upChance: 0.07 },
-            { name: "ЛЕГЕНДАРНЫЙ!", color: "#ffcc00", upChance: 0.00 }
-        ];
+            const dropTiers = [
+                { name: "РЕДКИЙ!", color: "#54f03a", upChance: 0.45 },
+                { name: "СВЕРХРЕДКИЙ!", color: "#00a2ff", upChance: 0.25 },
+                { name: "ЭПИЧЕСКИЙ!", color: "#d100d1", upChance: 0.15 },
+                { name: "МИФИЧЕСКИЙ!", color: "#ff3333", upChance: 0.07 },
+                { name: "ЛЕГЕНДАРНЫЙ!", color: "#ffcc00", upChance: 0.00 }
+            ];
 
-        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ BRAWL STARS (ВКЛЮЧАЯ НОВИНКИ 2026 ГОДА)
-        const poolBrawlers = [
-            { id: "shelly", img: "Shelly", name: "ШЕЛЛИ", rarity: "rare" },
-            { id: "colt", img: "Colt", name: "КОЛЬТ", rarity: "rare" },
-            { id: "nita", img: "Nita", name: "НИТА", rarity: "rare" },
-            { id: "bull", img: "Bull", name: "БУЛЛ", rarity: "rare" },
-            { id: "brock", img: "Brock", name: "БРОК", rarity: "rare" },
-            { id: "elprimo", img: "El-Primo", name: "ЭЛЬ ПРИМО", rarity: "rare" },
-            { id: "barley", img: "Barley", name: "БАРЛИ", rarity: "rare" },
-            { id: "poco", img: "Poco", name: "ПОКО", rarity: "rare" },
-            { id: "rosa", img: "Rosa", name: "РОЗА", rarity: "rare" },
-            { id: "jessie", img: "Jessie", name: "ДДЕССИ", rarity: "rare" },
-            { id: "dynamike", img: "Dynamike", name: "ДИНАМАЙК", rarity: "rare" },
-            { id: "tick", img: "Tick", name: "ТИК", rarity: "rare" },
-            { id: "8bit", img: "8-Bit", name: "8-БИТ", rarity: "rare" },
-            { id: "rico", img: "Rico", name: "РИКО", rarity: "rare" },
-            { id: "darryl", img: "Darryl", name: "ДЭРРИЛ", rarity: "rare" },
-            { id: "penny", img: "Penny", name: "ПЕННИ", rarity: "rare" },
-            { id: "carl", img: "Carl", name: "КАРЛ", rarity: "rare" },
-            { id: "jacky", img: "Jacky", name: "ДЖЕКИ", rarity: "rare" },
-            { id: "gus", img: "Gus", name: "ГАС", rarity: "rare" },
-            { id: "bo", img: "Bo", name: "БО", rarity: "rare" },
-            { id: "emz", img: "Emz", name: "ЭМЗ", rarity: "rare" },
-            { id: "stu", img: "Stu", name: "СТЮ", rarity: "rare" },
-            { id: "piper", img: "Piper", name: "ПАЙПЕР", rarity: "epic" },
-            { id: "pam", img: "Pam", name: "ПЭМ", rarity: "epic" },
-            { id: "frank", img: "Frank", name: "ФРЭНК", rarity: "epic" },
-            { id: "bibi", img: "Bibi", name: "БИБИ", rarity: "epic" },
-            { id: "bea", img: "Bea", name: "БИ", rarity: "epic" },
-            { id: "nani", img: "Nani", name: "НАНИ", rarity: "epic" },
-            { id: "edgar", img: "Edgar", name: "ЭДГАР", rarity: "epic" },
-            { id: "griff", img: "Griff", name: "ГРИФФ", rarity: "epic" },
-            { id: "grom", img: "Grom", name: "ГРОМ", rarity: "epic" },
-            { id: "bonnie", img: "Bonnie", name: "БОННИ", rarity: "epic" },
-            { id: "gale", img: "Gale", name: "ГЕЙЛ", rarity: "epic" },
-            { id: "colette", img: "Colette", name: "КОЛЕТТ", rarity: "epic" },
-            { id: "belle", img: "Belle", name: "БЕЛЛЬ", rarity: "epic" },
-            { id: "ash", img: "Ash", name: "ЭШ", rarity: "epic" },
-            { id: "lola", img: "Lola", name: "ЛОЛА", rarity: "epic" },
-            { id: "sam", img: "Sam", name: "СЭМ", rarity: "epic" },
-            { id: "mandy", img: "Mandy", name: "МЭНДИ", rarity: "epic" },
-            { id: "maisie", img: "Maisie", name: "МЭЙСИ", rarity: "epic" },
-            { id: "pearl", img: "Pearl", name: "ПЕРЛ", rarity: "epic" },
-            { id: "larry", img: "Larry-Lawrie", name: "ЛАРРИ", rarity: "epic" },
-            { id: "lawrie", img: "Larry-Lawrie", name: "ЛОРРИ", rarity: "epic" },
-            { id: "berry", img: "Berry", name: "БЕРРИ", rarity: "epic" },
-            { id: "angelo", img: "Angelo", name: "АНДЖЕЛО", rarity: "epic" },
-            { id: "hank", img: "Hank", name: "ХЭНК", rarity: "epic" },
-            { id: "charlie", img: "Charlie", name: "ШАРЛИ", rarity: "epic" },
-            { id: "juju", img: "Juju", name: "ДДЮДЖУ", rarity: "epic" },
-            { id: "mortis", img: "Mortis", name: "МОРТИС", rarity: "mythic" },
-            { id: "tara", img: "Tara", name: "ТАРА", rarity: "mythic" },
-            { id: "gene", img: "Gene", name: "ДДИН", rarity: "mythic" },
-            { id: "max", img: "Max", name: "МАКС", rarity: "mythic" },
-            { id: "mrp", img: "Mr-P", name: "МИСТЕР П", rarity: "mythic" },
-            { id: "sprout", img: "Sprout", name: "СПРАУТ", rarity: "mythic" },
-            { id: "byron", img: "Byron", name: "БАЙРОН", rarity: "mythic" },
-            { id: "squeak", img: "Squeak", name: "СКВИК", rarity: "mythic" },
-            { id: "lou", img: "Lou", name: "ЛУ", rarity: "mythic" },
-            { id: "ruffs", img: "Ruffs", name: "ГАВС", rarity: "mythic" },
-            { id: "buzz", img: "Buzz", name: "БАЗЗ", rarity: "mythic" },
-            { id: "fang", img: "Fang", name: "ФЭНГ", rarity: "mythic" },
-            { id: "eve", img: "Eve", name: "ИВ", rarity: "mythic" },
-            { id: "janet", img: "Janet", name: "ДДАНЕТ", rarity: "mythic" },
-            { id: "otis", img: "Otis", name: "ОТИС", rarity: "mythic" },
-            { id: "buster", img: "Buster", name: "БАСТЕР", rarity: "mythic" },
-            { id: "gray", img: "Gray", name: "ГРЭЙ", rarity: "mythic" },
-            { id: "rt", img: "R-T", name: "Р-Т", rarity: "mythic" },
-            { id: "willow", img: "Willow", name: "УИЛЛОУ", rarity: "mythic" },
-            { id: "doug", img: "Doug", name: "ДАГ", rarity: "mythic" },
-            { id: "chuck", img: "Chuck", name: "ЧАК", rarity: "mythic" },
-            { id: "mico", img: "Mico", name: "МИКО", rarity: "mythic" },
-            { id: "melodie", img: "Melodie", name: "МЕЛОДИ", rarity: "mythic" },
-            { id: "lily", img: "Lily", name: "ЛИЛИ", rarity: "mythic" },
-            { id: "clancy", img: "Clancy", name: "КЛЭНСИ", rarity: "mythic" },
-            { id: "moe", img: "Moe", name: "МО", rarity: "mythic" },
-            { id: "shade", img: "Grom", name: "ШЕЙД", rarity: "mythic" },
-            { id: "jup", img: "Otis", name: "ДЖАП", rarity: "mythic" },
-            { id: "finnegan", img: "Buster", name: "ФИННЕГАН", rarity: "mythic" },
-            { id: "copper", img: "Sam", name: "КОППЕР", rarity: "mythic" },
-            { id: "spike", img: "Spike", name: "СПАЙК", rarity: "legendary" },
-            { id: "crow", img: "Crow", name: "КРОУ", rarity: "legendary" },
-            { id: "leon", img: "Leon", name: "ЛЕОН", rarity: "legendary" },
-            { id: "sandy", img: "Sandy", name: "СЭНДИ", rarity: "legendary" },
-            { id: "amber", img: "Amber", name: "ЭМБЕР", rarity: "legendary" },
-            { id: "meg", img: "Meg", name: "МЕГ", rarity: "legendary" },
-            { id: "chester", img: "Chester", name: "ЧЕСТЕР", rarity: "legendary" },
-            { id: "cordelius", img: "Cordelius", name: "КОРДЕЛИУС", rarity: "legendary" },
-            { id: "kit", img: "Kit", name: "КИТ", rarity: "legendary" },
-            { id: "draco", img: "Draco", name: "ДРАКО", rarity: "legendary" },
-            { id: "surge", img: "Surge", name: "ВОЛЬТ", rarity: "legendary" },
-            { id: "kenji", img: "Kenji", name: "КЕНДЗИ", rarity: "legendary" },
-            { id: "ollie", img: "Buster", name: "ОЛЛИ", rarity: "legendary" },
-            /* Уникальные футуристичные концепты обновлений 2025-2026 годов (для ровного счета в 104) */
-            { id: "b1", img: "Shelly", name: "КСЕНОН", rarity: "rare" },
-            { id: "b2", img: "Colt", name: "ВЕКТОР", rarity: "rare" },
-            { id: "b3", img: "Bull", name: "МАГМА", rarity: "epic" },
-            { id: "b4", img: "Brock", name: "БЛИЦ", rarity: "epic" },
-            { id: "b5", img: "Nita", name: "ОРИОН", rarity: "mythic" },
-            { id: "b6", img: "Poco", name: "КОСМО", rarity: "mythic" },
-            { id: "b7", img: "Rosa", name: "НЕОН", rarity: "legendary" },
-            { id: "b8", img: "Jessie", name: "КИБЕР", rarity: "legendary" },
-            { id: "b9", img: "Mortis", name: "ПЛАЗМА", rarity: "mythic" },
-            { id: "b10", img: "Tara", name: "АСТРА", rarity: "epic" },
-            { id: "b11", img: "Gene", name: "НЕБУЛА", rarity: "legendary" },
-            { id: "b12", img: "Max", name: "КВАНТ", rarity: "mythic" },
-            { id: "b13", img: "Spike", name: "ГЕЛИОС", rarity: "legendary" }
-        ];
+            let currentTier = 0;
+            let tapsLeft = 4;
+            let activeDropType = 'starr';
 
-        let currentTier = 0;
-        let tapsLeft = 4;
-        let activeDropType = 'starr';
-
-        function updateHUD() {
-            document.getElementById('coins-val').innerText = coins;
-            document.getElementById('gems-val').innerText = gems;
-            document.getElementById('pp-val').innerText = powerPoints;
-            
-            localStorage.setItem('bs_m_coins', coins);
-            localStorage.setItem('bs_m_gems', gems);
-            localStorage.setItem('bs_m_pp', powerPoints);
-            localStorage.setItem('bs_m_list', JSON.stringify(unlockedList));
-        }
-
-        // КНОПКА «ИГРАТЬ» — ДАЕТ ГЕМЫ ЗА РЕКЛАМУ
-        function playButtonAction() {
-            getAudioContext();
-            alert("Запуск встроенной рекламы... 📺");
-            gems += 50; 
-            updateHUD();
-            alert("Реклама просмотрена! Получено: +50 гемов 💎");
-        }
-
-        function watchAdTest() {
-            getAudioContext();
-            gems += 50;
-            updateHUD();
-            alert("Реклама просмотрена! Начислено: +50 гемов 💎");
-        }
-
-        // ПОКУПКА КАРТОЧЕК ДРОПОВ ЗА ГЕМЫ
-        function buyDropCard(type, cost) {
-            getAudioContext();
-            if (gems < cost) {
-                alert("Недостаточно гемов! Нажмите кнопку 'ИГРАТЬ' для просмотра рекламы.");
-                return;
+            function updateHUD() {
+                document.getElementById('coins-val').innerText = coins;
+                document.getElementById('gems-val').innerText = gems;
+                document.getElementById('pp-val').innerText = powerPoints;
+                localStorage.setItem('bs_m_coins', coins);
+                localStorage.setItem('bs_m_gems', gems);
+                localStorage.setItem('bs_m_pp', powerPoints);
+                localStorage.setItem('bs_m_list', JSON.stringify(unlockedList));
             }
-            gems -= cost;
-            updateHUD();
 
-            activeDropType = type;
-            currentTier = (type === 'chaos') ? 2 : 0; 
-            tapsLeft = 4;
-            
-            document.getElementById('starr-overlay').style.display = 'flex';
-            renderDropState();
-        }
-
-        function renderDropState() {
-            const sphere = document.getElementById('starr-sphere-node');
-            const title = document.getElementById('starr-title-text');
-            const taps = document.getElementById('starr-taps-text');
-            const activeColor = dropTiers[currentTier].color;
-
-            sphere.style.setProperty('--drop-color', activeColor);
-            title.innerText = (activeDropType === 'chaos' ? "ХАОС " : "") + dropTiers[currentTier].name;
-            title.style.color = activeColor;
-            taps.innerText = tapsLeft > 0 ? `Тапай Дроп! Осталось: ${tapsLeft}` : "ОТКРЫТЬ НАГРАДУ";
-        }
-
-        function handleDropTap() {
-            const sphere = document.getElementById('starr-sphere-node');
-            sphere.classList.remove('bump');
-            void sphere.offsetWidth;
-            sphere.classList.add('bump');
-
-            if (tapsLeft > 0) {
-                tapsLeft--;
-                if (Math.random() < dropTiers[currentTier].upChance) {
-                    currentTier++;
-                    playSound('upgrade', currentTier);
-                } else {
-                    playSound('tap', currentTier);
+            // Экспортируем функции в глобальную область, чтобы HTML-обработчики их видели
+            window.resetProgress = function() {
+                if (confirm("Сбросить прогресс?")) {
+                    coins = 10797; gems = 454; powerPoints = 7827; unlockedList = [];
+                    updateHUD();
                 }
+            };
+            window.playButtonAction = function() { gems += 50; updateHUD(); alert("Получено +50 гемов!"); };
+            window.watchAdTest = function() { gems += 50; updateHUD(); alert("Получено +50 гемов!"); };
+            
+            window.buyDropCard = function(type, cost) {
+                if (gems < cost) return alert("Недостаточно гемов!");
+                gems -= cost; updateHUD();
+                activeDropType = type;
+                currentTier = (type === 'chaos') ? 2 : 0; tapsLeft = 4;
+                document.getElementById('starr-overlay').style.display = 'flex';
                 renderDropState();
-            } else {
-                triggerLootAward();
-            }
-        }
+            };
 
-        // ВЫПАДЕНИЕ НАГРАД (ГЕМЫ, МОНЕТЫ, ОЧКИ СИЛЫ И СЛУЧАЙНЫЕ БОЙЦЫ)
-        function triggerLootAward() {
-            document.getElementById('starr-overlay').style.display = 'none';
-            const screen = document.getElementById('reward-screen-node');
-            const box = document.getElementById('reward-box-border');
-            const img = document.getElementById('reward-img');
-            const label = document.getElementById('reward-title-text');
+            window.renderDropState = function() {
+                const sphere = document.getElementById('starr-sphere-node');
+                const title = document.getElementById('starr-title-text');
+                const taps = document.getElementById('starr-taps-text');
+                const activeColor = dropTiers[currentTier].color;
+                sphere.style.setProperty('--drop-color', activeColor);
+                title.innerText = (activeDropType === 'chaos' ? "ХАОС " : "") + dropTiers[currentTier].name;
+                title.style.color = activeColor;
+                taps.innerText = tapsLeft > 0 ? `Тапай Дроп! Осталось: ${tapsLeft}` : "ОТКРЫТЬ НАГРАДУ";
+            };
 
-            box.style.setProperty('--drop-color', dropTiers[currentTier].color);
-            screen.style.display = 'flex';
-
-            let roll = Math.random();
-            let lootMultiplier = (activeDropType === 'chaos') ? 3 : 1; 
-            let brawlerChance = (activeDropType === 'chaos') ? 0.12 : 0.04;
-            
-            if (roll < brawlerChance) { 
-                // НАГРАДА: СЛУЧАЙНЫЙ БОЕЦ (Выпадает строго по заданному проценту шанса)
-                let brawler = poolBrawlers[Math.floor(Math.random() * poolBrawlers.length)];
-                img.src = `https://wsrv.nl/?url=cdn.brawlify.com/brawler/${brawler.img}.png`;
-                label.innerHTML = `✨ БОЕЦ: ${brawler.name} ✨`;
-                
-                if (!unlockedList.includes(brawler.id)) {
-                    unlockedList.push(brawler.id);
+            window.handleDropTap = function() {
+                if (tapsLeft > 0) {
+                    tapsLeft--;
+                    if (Math.random() < dropTiers[currentTier].upChance) currentTier++;
+                    renderDropState();
+                } else {
+                    triggerLootAward();
                 }
-                
-                alert(`Выпало: Новый Боец — ${brawler.name}!`);
-                console.log(`Выпало: Новый Боец — ${brawler.name}!`);
-                
-                if (brawler.rarity === 'legendary') playSound('legendary');
-                else playSound('upgrade', 3);
-            } 
-            else {
-                // ГАРАНТИРОВАННЫЙ РЕСУРСНЫЙ ПУЛ (Бойцы сюда больше никогда не попадут!)
-                let resourceRoll = Math.random();
-                
-                if (resourceRoll < 0.45) { 
-                    // Награда: Монеты
-                    let amt = (Math.floor(Math.random() * 151) + 50) * lootMultiplier;
-                    coins += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-coin.png";
-                    label.innerHTML = `🪙 +${amt} МОНЕТ`;
-                    playSound('upgrade', 1);
-                    
-                    alert(`Выпало: Монеты x${amt}`);
-                    console.log(`Выпало: Монеты x${amt}`);
-                } 
-                else if (resourceRoll >= 0.45 && resourceRoll < 0.85) { 
-                    // Награда: Очки силы
-                    let amt = (Math.floor(Math.random() * 81) + 20) * lootMultiplier;
-                    powerPoints += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-combat-chunk.png";
-                    label.innerHTML = `🧬 +${amt} ОЧКОВ СИЛЫ`;
-                    playSound('upgrade', 2);
-                    
-                    alert(`Выпало: Очки силы x${amt}`);
-                    console.log(`Выпало: Очки силы x${amt}`);
-                } 
-                else {
-                    // Награда: Гемы
-                    let amt = (Math.floor(Math.random() * 21) + 5) * lootMultiplier;
-                    gems += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-gem.png";
-                    label.innerHTML = `💎 +${amt} ГЕМОВ`;
-                    playSound('upgrade', 3);
-                    
-                    alert(`Выпало: Гемы x${amt}`);
-                    console.log(`Выпало: Гемы x${amt}`);
+            };
+
+            window.triggerLootAward = function() {
+                document.getElementById('starr-overlay').style.display = 'none';
+                const screen = document.getElementById('reward-screen-node');
+                const box = document.getElementById('reward-box-border');
+                const img = document.getElementById('reward-img');
+                const label = document.getElementById('reward-title-text');
+                box.style.setProperty('--drop-color', dropTiers[currentTier].color);
+                screen.style.display = 'flex';
+
+                let lootMultiplier = (activeDropType === 'chaos') ? 3 : 1;
+                let brawlerChance = (activeDropType === 'chaos') ? 0.12 : 0.04;
+
+                if (Math.random() < brawlerChance) {
+                    let b = poolBrawlers[Math.floor(Math.random() * poolBrawlers.length)];
+                    img.src = `https://wsrv.nl/?url=cdn.brawlify.com/brawler/${b.img}.png`;
+                    label.innerHTML = `✨ ${b.name} ✨`;
+                    if (!unlockedList.includes(b.id)) unlockedList.push(b.id);
+                    alert("Выпал: " + b.name);
+                } else {
+                    let r = Math.random();
+                    if (r < 0.45) { coins += (Math.floor(Math.random()*151)+50)*lootMultiplier; label.innerText = "Монеты"; }
+                    else if (r < 0.85) { powerPoints += (Math.floor(Math.random()*81)+20)*lootMultiplier; label.innerText = "Очки силы"; }
+                    else { gems += (Math.floor(Math.random()*21)+5)*lootMultiplier; label.innerText = "Гемы"; }
                 }
-            }
-            updateHUD();
-        }
-
-        function closeRewardScreen() {
-            document.getElementById('reward-screen-node').style.display = 'none';
-        }
-
-        function addFreeMoney() {
-            getAudioContext();
-            coins += 500;
-            powerPoints += 150;
-            updateHUD();
-        }
-
-        function resetProgress() {
-            if (confirm("Сбросить все монеты, гемы и кубки на дефолт?")) {
-                coins = 10797;
-                gems = 454;
-                powerPoints = 7827;
-                unlockedList = [];
                 updateHUD();
-            }
-        }
+            };
 
-        // НОВЫЕ ФУНКЦИИ ДЛЯ ОТКРЫТИЯ И ЗАКРЫТИЯ ОКНА БОЙЦОВ
-        function openBrawlersScreen() {
-            getAudioContext();
-            document.getElementById('brawlers-screen').style.display = 'flex';
-        }
-
-        function closeBrawlersScreen() {
-            document.getElementById('brawlers-screen').style.display = 'none';
-        }
-
-        updateHUD();
+            window.closeRewardScreen = function() { document.getElementById('reward-screen-node').style.display = 'none'; };
+            window.openBrawlersScreen = function() { document.getElementById('brawlers-screen').style.display = 'flex'; renderBrawlersGrid(); };
+            window.closeBrawlersScreen = function() { document.getElementById('brawlers-screen').style.display = 'none'; };
+            window.renderBrawlersGrid = function() {
+                const grid = document.getElementById('brawlers-grid');
+                const counter = document.getElementById('brawlers-counter');
+                grid.innerHTML = "";
+                counter.innerText = `${unlockedList.length} из 104 БОЙЦОВ`;
+                poolBrawlers.forEach(b => {
+                    const unlocked = unlockedList.includes(b.id);
+                    grid.innerHTML += `<div class="brawler-card-item ${b.rarity} ${unlocked ? '' : 'locked'}">
+                        <div class="card-img-wrap"><img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/${b.img}.png" class="card-img"></div>
+                        <div class="card-name-text">${b.name}</div>
+                    </div>`;
+                });
+            };
+            updateHUD();
+        });
     </script>
 </body>
 </html>
