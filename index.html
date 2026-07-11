@@ -34,11 +34,7 @@
             height: 100vh;
             max-width: 177.78vh; /* Ограничение 16:9 */
             max-height: 56.25vw;
-            /* Обновлено: Качественный оригинальный синий фон Brawl Stars с эффектом затемнения */
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://fe505c47473807a7bafc48ccfece4829.jpg-5b019185-a0c9-4008-b5e6-c545533c8666.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: radial-gradient(circle at 50% 50%, #46aa34 0%, #13420c 100%);
             overflow: hidden;
             box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
@@ -55,12 +51,12 @@
 
         /* ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ] ---------------- */
         
-        /* Профиль полностью некликабельный */
+        /* Изменено: Новый аккуратный профиль по мотивам оригинала */
         .hud-profile {
             position: absolute; top: 12px; left: 15px;
             display: flex; gap: 4px; z-index: 10;
             align-items: center;
-            pointer-events: none; 
+            pointer-events: none; /* Профиль полностью некликабельный */
         }
         .profile-level-badge {
             width: 24px; height: 24px;
@@ -297,12 +293,13 @@
             display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
         
+        /* Изменено: Убрали блок селектора режима рекламы, оставили место под кнопку */
         .battle-group { display: flex; align-items: center; width: 62%; justify-content: flex-end; }
         
         .btn-play-main {
             background: linear-gradient(180deg, #fff59d 0%, #fbc02d 100%);
             border: 2.5px solid #000; border-radius: 10px;
-            width: 160px; height: 52px; cursor: pointer; 
+            width: 160px; height: 52px; cursor: pointer; /* Изменено: Слегка увеличили ширину для солидности */
             transform: skewX(-10deg); box-shadow: 0 5px 0 #f57f17;
             display: flex; align-items: center; justify-content: center;
         }
@@ -706,7 +703,7 @@
             { id: "b4", img: "Brock", name: "БЛИЦ", rarity: "epic" },
             { id: "b5", img: "Nita", name: "ОРИОН", rarity: "mythic" },
             { id: "b6", img: "Poco", name: "КОСМО", rarity: "mythic" },
-            { id: "b7", solid: true, img: "Rosa", name: "НЕОН", rarity: "legendary" },
+            { id: "b7", img: "Rosa", name: "НЕОН", rarity: "legendary" },
             { id: "b8", img: "Jessie", name: "КИБЕР", rarity: "legendary" },
             { id: "b9", img: "Mortis", name: "ПЛАЗМА", rarity: "mythic" },
             { id: "b10", img: "Tara", name: "АСТРА", rarity: "epic" },
