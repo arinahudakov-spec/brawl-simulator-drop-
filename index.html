@@ -39,6 +39,15 @@
             box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
 
+        @media (orientation: portrait) {
+            /* Защита от схлопывания контейнера на вертикальных экранах */
+            .game-wrapper {
+                width: 100vw;
+                height: 56.25vw;
+                max-height: 100vh;
+            }
+        }
+
         /* Полупрозрачный фоновый паттерн из черепков/звёзд */
         .bg-pattern {
             position: absolute;
@@ -49,7 +58,7 @@
             pointer-events: none;
         }
 
-        /* ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ] ---------------- */
+        /* HUD ВЕРХНЯЯ ПАНЕЛЬ */
         
         /* Профиль (Слева) */
         .hud-profile {
@@ -103,7 +112,7 @@
             color: #fff; font-size: 12px; padding: 2px 6px; cursor: pointer;
         }
 
-        /* ---------------- [HUD: БОКОВЫЕ САЙДБАРЫ] ---------------- */
+        /* HUD БОКОВЫЕ САЙДБАРЫ */
         
         .sidebar-left { position: absolute; left: 15px; top: 24%; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
         .sidebar-right { position: absolute; right: 15px; top: 32%; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
@@ -124,7 +133,7 @@
         .btn-brawlers { background: linear-gradient(180deg, #4fc3f7 0%, #0288d1 100%); box-shadow: 0 4px 0 #01579b; }
         .btn-blue { background: linear-gradient(180deg, #7986cb 0%, #3f51b5 100%); box-shadow: 0 4px 0 #1a237e; }
 
-        /* ---------------- [ЦЕНТР: СЦЕНА И БОЕЦ] ---------------- */
+        /* ЦЕНТР СЦЕНА И БОЕЦ */
         
         .center-stage {
             position: absolute; bottom: 20%; left: 24%;
@@ -152,7 +161,7 @@
             100% { transform: translateY(-6px) scaleX(1.03); }
         }
 
-        /* ---------------- [ГЛАВНЫЙ ЭКРАН: КАРТОЧКИ ДРОПОВ] ---------------- */
+        /* ГЛАВНЫЙ ЭКРАН КАРТОЧКИ ДРОПОВ */
         
         .drop-cards-container {
             position: absolute;
@@ -221,7 +230,7 @@
             text-shadow: 2px 2px 0 #000;
         }
 
-        /* ---------------- [ИНТЕРФЕЙС STARR DROP (ВСПЛЫВАЮЩИЙ)] ---------------- */
+        /* ИНТЕРФЕЙС STARR DROP ВСПЛЫВАЮЩИЙ */
         
         .starr-drop-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -266,7 +275,7 @@
         .reward-icon-box img { max-width: 80%; max-height: 80%; object-fit: contain; }
         .reward-title { font-size: 24px; text-shadow: 2px 2px 0 #000; margin-bottom: 20px; }
 
-        /* ---------------- [HUD: НИЖНЯЯ ПАНЕЛЬ] ---------------- */
+        /* HUD НИЖНЯЯ ПАНЕЛЬ */
         
         .hud-bottom {
             position: absolute; bottom: 12px; left: 15px; right: 15px;
@@ -305,7 +314,7 @@
             -webkit-text-stroke: 0.5px #fff; text-transform: uppercase;
         }
 
-        /* ---------------- [ОКНО СПИСКА ВСЕХ БОЙЦОВ] ---------------- */
+        /* ОКНО СПИСКА ВСЕХ БОЙЦОВ */
         
         .brawlers-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -450,9 +459,9 @@
                     <img id="reward-img" src="" alt="Лут">
                 </div>
                 <div class="reward-title" id="reward-title-text">Награда</div>
-                <button class="btn-play-main" style="width: 160px; height: 44px;" onclick="closeRewardScreen()">
+                <div class="btn-play-main" style="width: 160px; height: 44px;" onclick="closeRewardScreen()">
                     <span style="font-size: 16px;">ЗАБРАТЬ</span>
-                </button>
+                </div>
             </div>
         </div>
 
@@ -515,11 +524,21 @@
             } catch(e) {}
         }
 
-        // СИСТЕМА РЕСУРСОВ (STATE) + LOCALSTORAGE
+        // СИСТЕМА РЕСУРСОВ И ЗАЩИЩЕННАЯ ИНИЦИАЛИЗАЦИЯ ИЗ ПАМЯТИ
         let coins = parseInt(localStorage.getItem('bs_m_coins')) || 10797;
         let gems = parseInt(localStorage.getItem('bs_m_gems')) || 454;
         let powerPoints = parseInt(localStorage.getItem('bs_m_pp')) || 7827;
-        let unlockedList = JSON.parse(localStorage.getItem('bs_m_list')) || [];
+        
+        let unlockedList = [];
+        try {
+            let savedList = localStorage.getItem('bs_m_list');
+            if (savedList) {
+                unlockedList = JSON.parse(savedList);
+                if (!Array.isArray(unlockedList)) unlockedList = [];
+            }
+        } catch (e) {
+            unlockedList = [];
+        }
 
         const dropTiers = [
             { name: "РЕДКИЙ!", color: "#54f03a", upChance: 0.45 },
@@ -529,7 +548,7 @@
             { name: "ЛЕГЕНДАРНЫЙ!", color: "#ffcc00", upChance: 0.00 }
         ];
 
-        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ BRAWL STARS (ВКЛЮЧАЯ НОВИНКИ 2026 ГОДА)
+        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ BRAWL STARS
         const poolBrawlers = [
             { id: "shelly", img: "Shelly", name: "ШЕЛЛИ", rarity: "rare" },
             { id: "colt", img: "Colt", name: "КОЛЬТ", rarity: "rare" },
@@ -540,7 +559,7 @@
             { id: "barley", img: "Barley", name: "БАРЛИ", rarity: "rare" },
             { id: "poco", img: "Poco", name: "ПОКО", rarity: "rare" },
             { id: "rosa", img: "Rosa", name: "РОЗА", rarity: "rare" },
-            { id: "jessie", img: "Jessie", name: "ДЖЕССИ", rarity: "rare" },
+            { id: "jessie", img: "Jessie", name: "ДДЕССИ", rarity: "rare" },
             { id: "dynamike", img: "Dynamike", name: "ДИНАМАЙК", rarity: "rare" },
             { id: "tick", img: "Tick", name: "ТИК", rarity: "rare" },
             { id: "8bit", img: "8-Bit", name: "8-БИТ", rarity: "rare" },
@@ -622,7 +641,6 @@
             { id: "surge", img: "Surge", name: "ВОЛЬТ", rarity: "legendary" },
             { id: "kenji", img: "Kenji", name: "КЕНДЗИ", rarity: "legendary" },
             { id: "ollie", img: "Buster", name: "ОЛЛИ", rarity: "legendary" },
-            /* Уникальные футуристичные концепты обновлений 2025-2026 годов (для ровного счета в 104) */
             { id: "b1", img: "Shelly", name: "КСЕНОН", rarity: "rare" },
             { id: "b2", img: "Colt", name: "ВЕКТОР", rarity: "rare" },
             { id: "b3", img: "Bull", name: "МАГМА", rarity: "epic" },
@@ -653,7 +671,6 @@
             localStorage.setItem('bs_m_list', JSON.stringify(unlockedList));
         }
 
-        // КНОПКА «ИГРАТЬ» — ДАЕТ ГЕМЫ ЗА РЕКЛАМУ
         function playButtonAction() {
             getAudioContext();
             alert("Запуск встроенной рекламы... 📺");
@@ -669,7 +686,6 @@
             alert("Реклама просмотрена! Начислено: +50 гемов 💎");
         }
 
-        // ПОКУПКА КАРТОЧЕК ДРОПОВ ЗА ГЕМЫ
         function buyDropCard(type, cost) {
             getAudioContext();
             if (gems < cost) {
@@ -719,7 +735,6 @@
             }
         }
 
-        // ВЫПАДЕНИЕ НАГРАД (ГЕМЫ, МОНЕТЫ, ОЧКИ СИЛЫ И СЛУЧАЙНЫЕ БОЙЦЫ)
         function triggerLootAward() {
             document.getElementById('starr-overlay').style.display = 'none';
             const screen = document.getElementById('reward-screen-node');
@@ -735,7 +750,6 @@
             let brawlerChance = (activeDropType === 'chaos') ? 0.12 : 0.04;
             
             if (roll < brawlerChance) { 
-                // НАГРАДА: СЛУЧАЙНЫЙ БОЕЦ (Выпадает строго по заданному проценту шанса)
                 let brawler = poolBrawlers[Math.floor(Math.random() * poolBrawlers.length)];
                 img.src = `https://wsrv.nl/?url=cdn.brawlify.com/brawler/${brawler.img}.png`;
                 label.innerHTML = `✨ БОЕЦ: ${brawler.name} ✨`;
@@ -751,11 +765,9 @@
                 else playSound('upgrade', 3);
             } 
             else {
-                // ГАРАНТИРОВАННЫЙ РЕСУРСНЫЙ ПУЛ (Бойцы сюда больше никогда не попадут!)
                 let resourceRoll = Math.random();
                 
                 if (resourceRoll < 0.45) { 
-                    // Награда: Монеты
                     let amt = (Math.floor(Math.random() * 151) + 50) * lootMultiplier;
                     coins += amt;
                     img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-coin.png";
@@ -766,89 +778,5 @@
                     console.log(`Выпало: Монеты x${amt}`);
                 } 
                 else if (resourceRoll >= 0.45 && resourceRoll < 0.85) { 
-                    // Награда: Очки силы
                     let amt = (Math.floor(Math.random() * 81) + 20) * lootMultiplier;
-                    powerPoints += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-combat-chunk.png";
-                    label.innerHTML = `🧬 +${amt} ОЧКОВ СИЛЫ`;
-                    playSound('upgrade', 2);
-                    
-                    alert(`Выпало: Очки силы x${amt}`);
-                    console.log(`Выпало: Очки силы x${amt}`);
-                } 
-                else {
-                    // Награда: Гемы
-                    let amt = (Math.floor(Math.random() * 21) + 5) * lootMultiplier;
-                    gems += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-gem.png";
-                    label.innerHTML = `💎 +${amt} ГЕМОВ`;
-                    playSound('upgrade', 3);
-                    
-                    alert(`Выпало: Гемы x${amt}`);
-                    console.log(`Выпало: Гемы x${amt}`);
-                }
-            }
-            updateHUD();
-        }
-
-        function closeRewardScreen() {
-            document.getElementById('reward-screen-node').style.display = 'none';
-        }
-
-        function addFreeMoney() {
-            getAudioContext();
-            coins += 500;
-            powerPoints += 150;
-            updateHUD();
-        }
-
-        function resetProgress() {
-            if (confirm("Сбросить все монеты, гемы и кубки на дефолт?")) {
-                coins = 10797;
-                gems = 454;
-                powerPoints = 7827;
-                unlockedList = [];
-                updateHUD();
-            }
-        }
-
-        /* ---------------- [ФУНКЦИИ ОКНА БОЙЦОВ] ---------------- */
-        
-        function openBrawlersMenu() {
-            getAudioContext();
-            document.getElementById('brawlers-overlay').style.display = 'flex';
-            renderBrawlersGrid();
-        }
-
-        function closeBrawlersMenu() {
-            document.getElementById('brawlers-overlay').style.display = 'none';
-        }
-
-        function renderBrawlersGrid() {
-            const container = document.getElementById('brawlers-grid-container');
-            const counterText = document.getElementById('brawlers-counter-text');
-            
-            container.innerHTML = "";
-            // Генерируем счетчик Х из 104 вверху экрана
-            counterText.innerText = unlockedList.length + " из " + poolBrawlers.length + " БОЙЦОВ";
-            
-            // Перебираем весь наш массив из 104 бойцов и создаем карточки
-            poolBrawlers.forEach(b => {
-                const isUnlocked = unlockedList.includes(b.id);
-                // Если не пойман — присваивается класс .locked с opacity: 0.4 и ч/б фильтром
-                const statusClass = isUnlocked ? "" : "locked";
-                const imgUrl = "https://wsrv.nl/?url=cdn.brawlify.com/brawler/" + b.img + ".png";
-                
-                container.innerHTML += '<div class="brawler-card-item ' + b.rarity + ' ' + statusClass + '">' +
-                    '<div class="card-img-wrap">' +
-                        '<img src="' + imgUrl + '" class="card-img" onerror="this.src=\'https://wsrv.nl/?url=cdn.brawlify.com/brawler/Shelly.png\'\u003e">' +
-                    '</div>' +
-                    '<div class="card-name-text">' + b.name + '</div>' +
-                '</div>';
-            });
-        }
-
-        updateHUD();
-    </script>
-</body>
-</html>
+                    powerPoints += amt
