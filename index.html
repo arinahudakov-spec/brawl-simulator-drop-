@@ -141,9 +141,6 @@
             height: 180px; object-fit: contain;
             animation: idle-swim 2s ease-in-out infinite alternate;
         }
-        .brawler-img-main.unlock-anim {
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
         .brawler-title-tag {
             background: #7b1fa2; border: 2px solid #000; border-radius: 12px;
             padding: 2px 12px; font-size: 11px; text-shadow: 1px 1px 0 #000;
@@ -190,68 +187,4 @@
             box-shadow: 0 8px 0 #990011, 0 10px 15px rgba(0,0,0,0.5);
         }
         .drop-card.chaos:active {
-            box-shadow: 0 4px 0 #990011, 0 5px 10px rgba(0,0,0,0.5);
-        }
-        .drop-card-title {
-            width: 100%;
-            background: rgba(0,0,0,0.3);
-            text-align: center;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #fff;
-            text-shadow: 2px 2px 0 #000;
-            border-bottom: 3.5px solid #000;
-            text-transform: uppercase;
-        }
-        .drop-card-img {
-            font-size: 55px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
-            margin-top: 5px;
-            animation: drop-float 1.8s ease-in-out infinite alternate;
-        }
-        @keyframes drop-float {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
-        }
-        .drop-card-price {
-            width: 100%;
-            background: #191f2e;
-            border-top: 3.5px solid #000;
-            text-align: center;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #ffce20;
-            text-shadow: 2px 2px 0 #000;
-        }
-
-        /* ---------------- [ИНТЕРФЕЙС STARR DROP (ВСПЛЫВАЮЩИЙ)] ---------------- */
-        
-        .starr-drop-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(6px);
-            z-index: 20; display: none; align-items: center; justify-content: center;
-            flex-direction: column;
-        }
-        .starr-sphere {
-            width: 140px; height: 140px; border-radius: 50%;
-            background: radial-gradient(circle, var(--drop-color) 20%, transparent 80%);
-            box-shadow: 0 0 50px var(--drop-color);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.1s;
-        }
-        .starr-sphere.bump { animation: sphere-bump 0.2s ease-out; }
-        @keyframes sphere-bump { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.85); } }
-        
-        .starr-star-icon { font-size: 75px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .starr-title { font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 0 #000; }
-        .starr-taps { font-size: 13px; color: #aaa; margin-top: 5px; }
-
-        /* Экран выигрыша */
-        .reward-screen {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #030710; z-index: 30; display: none;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
-        .sunburst-rays {
-            position: absolute; width: 200%; height: 200%;
-            background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.08) 0deg 15deg, transparent 15
+            box-shadow: 0 4px 0 #990011, 0 5px 10px rgba
