@@ -34,7 +34,11 @@
             height: 100vh;
             max-width: 177.78vh; /* Ограничение 16:9 */
             max-height: 56.25vw;
-            background: radial-gradient(circle at 50% 50%, #46aa34 0%, #13420c 100%);
+            /* Обновлено: Качественный оригинальный синий фон Brawl Stars с эффектом затемнения */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://raw.githubusercontent.com/brawlify/cdn/master/images/background/Menu-Background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             overflow: hidden;
             box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
@@ -51,12 +55,12 @@
 
         /* ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ] ---------------- */
         
-        /* Изменено: Новый аккуратный профиль по мотивам оригинала */
+        /* Профиль полностью некликабельный */
         .hud-profile {
             position: absolute; top: 12px; left: 15px;
             display: flex; gap: 4px; z-index: 10;
             align-items: center;
-            pointer-events: none; /* Профиль полностью некликабельный */
+            pointer-events: none; 
         }
         .profile-level-badge {
             width: 24px; height: 24px;
@@ -293,13 +297,12 @@
             display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
         
-        /* Изменено: Убрали блок селектора режима рекламы, оставили место под кнопку */
         .battle-group { display: flex; align-items: center; width: 62%; justify-content: flex-end; }
         
         .btn-play-main {
             background: linear-gradient(180deg, #fff59d 0%, #fbc02d 100%);
             border: 2.5px solid #000; border-radius: 10px;
-            width: 160px; height: 52px; cursor: pointer; /* Изменено: Слегка увеличили ширину для солидности */
+            width: 160px; height: 52px; cursor: pointer; 
             transform: skewX(-10deg); box-shadow: 0 5px 0 #f57f17;
             display: flex; align-items: center; justify-content: center;
         }
@@ -384,9 +387,9 @@
             cursor: pointer; aspect-ratio: 1 / 1.15; transition: transform 0.05s;
         }
         .shop-card-item:active { transform: scale(0.96); }
-        .shop-card-give { font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; text-align: center; }
-        .shop-card-icon { font-size: 36px; margin: 2px 0; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4)); }
-        .shop-card-cost { font-size: 12px; color: #ffce20; text-shadow: 1.5px 1.5px 0 #000; background: rgba(0,0,0,0.3); padding: 2px 10px; border-radius: 10px; border: 1.5px solid #000; }
+        .shop-card-give { font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; text-align: center; display: flex; align-items: center; justify-content: center; }
+        .shop-card-icon { font-size: 36px; margin: 2px 0; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4)); display: none; } /* Спрятали текстовый эмодзи */
+        .shop-card-cost { font-size: 12px; color: #ffce20; text-shadow: 1.5px 1.5px 0 #000; background: rgba(0,0,0,0.3); padding: 2px 10px; border-radius: 10px; border: 1.5px solid #000; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
@@ -406,9 +409,9 @@
         </div>
 
         <div class="hud-resources">
-            <div class="res-item res-pp">🧬 <span id="pp-val">7827</span></div>
-            <div class="res-item res-coins">🪙 <span id="coins-val">10797</span></div>
-            <div class="res-item res-gems">💎 <span id="gems-val">454</span></div>
+            <div class="res-item res-pp"><img src="https://cdn.brawlify.com/currency/Power-Points.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> <span id="pp-val">7827</span></div>
+            <div class="res-item res-coins"><img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> <span id="coins-val">10797</span></div>
+            <div class="res-item res-gems"><img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> <span id="gems-val">454</span></div>
             <button class="btn-burger" onclick="resetProgress()">🔄</button>
         </div>
 
@@ -427,12 +430,12 @@
             <div class="drop-card" onclick="buyDropCard('starr', 10)">
                 <div class="drop-card-title">СТАР ДРОП</div>
                 <div class="drop-card-img">⭐</div>
-                <div class="drop-card-price">10 💎</div>
+                <div class="drop-card-price">10 <img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
             </div>
             <div class="drop-card chaos" onclick="buyDropCard('chaos', 30)">
                 <div class="drop-card-title">ХАОС ДРОП</div>
                 <div class="drop-card-img">🌀</div>
-                <div class="drop-card-price">30 💎</div>
+                <div class="drop-card-price">30 <img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
             </div>
         </div>
 
@@ -491,38 +494,38 @@
             <div class="shop-section-title">ПАК МОНЕТ (ЗА ГЕМЫ)</div>
             <div class="shop-grid">
                 <div class="shop-card-item" onclick="exchangeCurrency('coins', 250, 'gems', 10)">
-                    <div class="shop-card-give">250 Монет</div>
+                    <div class="shop-card-give"><img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> 250 Монет</div>
                     <div class="shop-card-icon">🪙</div>
-                    <div class="shop-card-cost">10 💎</div>
+                    <div class="shop-card-cost">10 <img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('coins', 1000, 'gems', 30)">
-                    <div class="shop-card-give">1000 Монет</div>
+                    <div class="shop-card-give"><img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> 1000 Монет</div>
                     <div class="shop-card-icon">🪙</div>
-                    <div class="shop-card-cost">30 💎</div>
+                    <div class="shop-card-cost">30 <img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('coins', 5000, 'gems', 120)">
-                    <div class="shop-card-give">5000 Монет</div>
+                    <div class="shop-card-give"><img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> 5000 Монет</div>
                     <div class="shop-card-icon">🪙</div>
-                    <div class="shop-card-cost">120 💎</div>
+                    <div class="shop-card-cost">120 <img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
                 </div>
             </div>
 
             <div class="shop-section-title">ПАК КРИСТАЛЛОВ (ЗА МОНЕТЫ)</div>
             <div class="shop-grid">
                 <div class="shop-card-item" onclick="exchangeCurrency('gems', 30, 'coins', 1500)">
-                    <div class="shop-card-give">30 Гемов</div>
+                    <div class="shop-card-give"><img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> 30 Гемов</div>
                     <div class="shop-card-icon">💎</div>
-                    <div class="shop-card-cost">1500 🪙</div>
+                    <div class="shop-card-cost">1500 <img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('gems', 80, 'coins', 3500)">
-                    <div class="shop-card-give">80 Гемов</div>
+                    <div class="shop-card-give"><img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> 80 Гемов</div>
                     <div class="shop-card-icon">💎</div>
-                    <div class="shop-card-cost">3500 🪙</div>
+                    <div class="shop-card-cost">3500 <img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('gems', 170, 'coins', 7000)">
-                    <div class="shop-card-give">170 Гемов</div>
+                    <div class="shop-card-give"><img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"> 170 Гемов</div>
                     <div class="shop-card-icon">💎</div>
-                    <div class="shop-card-cost">7000 🪙</div>
+                    <div class="shop-card-cost">7000 <img src="https://cdn.brawlify.com/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);"></div>
                 </div>
             </div>
         </div>
@@ -703,7 +706,7 @@
             { id: "b4", img: "Brock", name: "БЛИЦ", rarity: "epic" },
             { id: "b5", img: "Nita", name: "ОРИОН", rarity: "mythic" },
             { id: "b6", img: "Poco", name: "КОСМО", rarity: "mythic" },
-            { id: "b7", img: "Rosa", name: "НЕОН", rarity: "legendary" },
+            { id: "b7", solid: true, img: "Rosa", name: "НЕОН", rarity: "legendary" },
             { id: "b8", img: "Jessie", name: "КИБЕР", rarity: "legendary" },
             { id: "b9", img: "Mortis", name: "ПЛАЗМА", rarity: "mythic" },
             { id: "b10", img: "Tara", name: "АСТРА", rarity: "epic" },
