@@ -46,7 +46,7 @@
             position: absolute;
             width: 100%; height: 100%;
             opacity: 0.07;
-            background-image: url('https://wsrv.nl/?url=cdn.brawlify.com/gamemode/Showdown.png');
+            background-image: url('https://cdn.brawlify.com/gamemode/Showdown.png');
             background-size: 85px;
             transform: rotate(-10deg) scale(1.1);
             pointer-events: none;
@@ -282,7 +282,7 @@
             display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
         }
         .reward-icon-box img { max-width: 80%; max-height: 80%; object-fit: contain; }
-        .reward-title { font-size: 26px; text-shadow: 3px 3px 0 #000; color: #fff; margin-bottom: 20px; text-transform: uppercase; }
+        .reward-title { font-size: 26px; text-shadow: 3px 3px 0 #000; color: #fff; margin-bottom: 20px; text-transform: uppercase; text-align: center; }
 
         /* ---------------- [HUD: НИЖНЯЯ ПАНЕЛЬ] ---------------- */
         
@@ -342,7 +342,7 @@
         .brawler-card-item.mythic { border: 3.5px solid #ff3333; }
         .brawler-card-item.legendary { border: 3.5px solid #ffcc00; }
 
-         Tar-img-wrap {
+        .card-img-wrap {
             width: 55px; height: 55px; background: #0b0f19; border-radius: 6px;
             display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
@@ -380,18 +380,16 @@
         .shop-card-give { font-size: 15px; color: #fff; text-shadow: 2px 2px 0 #000; text-align: center; text-transform: uppercase; }
         .shop-card-cost { font-size: 13px; color: #ffce20; text-shadow: 2px 2px 0 #000; background: rgba(0,0,0,0.4); padding: 3px 12px; border-radius: 12px; border: 2px solid #000; text-transform: uppercase; }
     </style>
-    
 </head>
 <body>
 
     <div class="game-wrapper" id="game-container">
         <div class="bg-pattern"></div>
 
-        <!-- ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ ПРОФИЛЯ] ---------------- -->
         <div class="hud-profile">
             <div class="profile-level-badge">37</div>
             <div class="avatar-box">
-                <img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Shelly.png" class="avatar-img" alt="Ава">
+                <img src="https://cdn.brawlify.com/brawler/Shelly.png" class="avatar-img" alt="Ава">
             </div>
             <div class="profile-text">
                 <div class="username">МАЙОНЕЗА</div>
@@ -399,7 +397,6 @@
             </div>
         </div>
 
-        <!-- ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ РЕСУРСОВ] ---------------- -->
         <div class="hud-resources">
             <div class="res-item res-pp">
                 <img src="https://cdn.brawlify.com/currency/Power-Points.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="PP">
@@ -416,22 +413,18 @@
             <button class="btn-burger" onclick="resetProgress()">🔄</button>
         </div>
 
-        <!-- ---------------- [ЛЕВЫЙ САЙДБАР] ---------------- -->
         <div class="sidebar-left">
             <div class="side-btn btn-shop-menu" onclick="openShopScreen()"><span>Магазин</span></div>
             <div class="side-btn btn-brawlers" onclick="openBrawlersScreen()"><span>Бойцы</span></div>
         </div>
 
-        <!-- ---------------- [ЦЕНТР: ПОДИУМ И ПЕРСОНАЖ] ---------------- -->
         <div class="center-stage">
             <div class="brawler-title-tag">ПОМИДОР 👑</div>
-            <img src="https://wsrv.nl/?url=cdn.brawlify.com/brawler/Grom.png" class="brawler-img-main" alt="Grom">
+            <img src="https://cdn.brawlify.com/brawler/Grom.png" class="brawler-img-main" alt="Grom">
             <div class="character-podium"></div>
         </div>
 
-        <!-- ---------------- [ГЛАВНЫЙ ЭКРАН: КАРТОЧКИ ДРОПОВ] ---------------- -->
         <div class="drop-cards-container">
-            <!-- Обычный Стар Дроп с настоящей иконкой -->
             <div class="drop-card" onclick="buyDropCard('starr', 10)">
                 <div class="drop-card-title">СТАР ДРОП</div>
                 <div style="height: 70px; display: flex; align-items: center; justify-content: center; margin-top: 5px;">
@@ -441,7 +434,6 @@
                     10 <img src="https://cdn.brawlify.com/currency/Gem.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
                 </div>
             </div>
-            <!-- Хаос Дроп с эпичной иконкой (Используем Мегаящик) -->
             <div class="drop-card chaos" onclick="buyDropCard('chaos', 30)">
                 <div class="drop-card-title">ХАОС ДРОП</div>
                 <div style="height: 70px; display: flex; align-items: center; justify-content: center; margin-top: 5px;">
@@ -453,13 +445,11 @@
             </div>
         </div>
 
-        <!-- ---------------- [ПРАВЫЙ САЙДБАР] ---------------- -->
         <div class="sidebar-right">
             <div class="side-btn btn-blue"><span>Новости</span></div>
             <div class="side-btn btn-blue"><span>Друзья</span></div>
         </div>
 
-        <!-- ---------------- [HUD: НИЖНЯЯ ПАНЕЛЬ] ---------------- -->
         <div class="hud-bottom">
             <div class="btn-brawlpass">
                 <span style="transform: skewX(10deg); font-size: 11px; text-shadow: 1.5px 1.5px 0 #000;">BRAWL PASS</span>
@@ -472,7 +462,6 @@
             </div>
         </div>
 
-        <!-- ---------------- [ВСПЛЫВАЮЩИЙ СТАР ДРОП] ---------------- -->
         <div class="starr-drop-overlay" id="starr-overlay">
             <div class="starr-sphere" id="starr-sphere-node" onclick="handleDropTap()" style="--drop-color: #54f03a;">
                 <img src="https://cdn.brawlify.com/v2/Starr-Drop.png" style="width: 90px; height: 90px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));" alt="Drop">
@@ -481,7 +470,6 @@
             <div class="starr-taps" id="starr-taps-text">Тапов осталось: 4</div>
         </div>
 
-        <!-- ---------------- [ЭКРАН НАГРАДЫ] ---------------- -->
         <div class="reward-screen" id="reward-screen-node">
             <div class="sunburst-rays"></div>
             <div class="reward-content">
@@ -495,7 +483,6 @@
             </div>
         </div>
 
-        <!-- ---------------- [ЭКРАН БОЙЦОВ] ---------------- -->
         <div id="brawlers-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column;">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
                 <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
@@ -504,7 +491,6 @@
             <div id="brawlers-grid"></div>
         </div>
 
-        <!-- ---------------- [МАГАЗИН РЕСУРСОВ] ---------------- -->
         <div id="shop-screen">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
                 <button onclick="closeShopScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
@@ -626,113 +612,112 @@
             { name: "ЛЕГЕНДАРНЫЙ!", color: "#ffcc00", upChance: 0.00 }
         ];
 
-        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ BRAWL STARS
+        // ПОЛНАЯ БАЗА ИЗ 104 БОЙЦОВ С ОФИЦИАЛЬНЫМИ НАЗВАНИЯМИ ИКОНОК
         const poolBrawlers = [
-            { id: "shelly", img: "Shelly", name: "ШЕЛЛИ", rarity: "rare" },
-            { id: "colt", img: "Colt", name: "КОЛЬТ", rarity: "rare" },
-            { id: "nita", img: "Nita", name: "НИТА", rarity: "rare" },
-            { id: "bull", img: "Bull", name: "БУЛЛ", rarity: "rare" },
-            { id: "brock", img: "Brock", name: "БРОК", rarity: "rare" },
-            { id: "elprimo", img: "El-Primo", name: "ЭЛЬ ПРИМО", rarity: "rare" },
-            { id: "barley", img: "Barley", name: "БАРЛИ", rarity: "rare" },
-            { id: "poco", img: "Poco", name: "ПОКО", rarity: "rare" },
-            { id: "rosa", img: "Rosa", name: "РОЗА", rarity: "rare" },
-            { id: "jessie", img: "Jessie", name: "ДЕССИ", rarity: "rare" },
-            { id: "dynamike", img: "Dynamike", name: "ДИНАМАЙК", rarity: "rare" },
-            { id: "tick", img: "Tick", name: "ТИК", rarity: "rare" },
-            { id: "8bit", img: "8-Bit", name: "8-БИТ", rarity: "rare" },
-            { id: "rico", img: "Rico", name: "РИКО", rarity: "rare" },
-            { id: "darryl", img: "Darryl", name: "ДЭРРИЛ", rarity: "rare" },
-            { id: "penny", img: "Penny", name: "ПЕННИ", rarity: "rare" },
-            { id: "carl", img: "Carl", name: "КАРЛ", rarity: "rare" },
-            { id: "jacky", img: "Jacky", name: "ДЖЕКИ", rarity: "rare" },
-            { id: "gus", img: "Gus", name: "ГАС", rarity: "rare" },
-            { id: "bo", img: "Bo", name: "БО", rarity: "rare" },
-            { id: "emz", img: "Emz", name: "ЭМЗ", rarity: "rare" },
-            { id: "stu", img: "Stu", name: "СТЮ", rarity: "rare" },
-            { id: "piper", img: "Piper", name: "ПАЙПЕР", rarity: "epic" },
-            { id: "pam", img: "Pam", name: "ПЭМ", rarity: "epic" },
-            { id: "frank", img: "Frank", name: "ФРЭНК", rarity: "epic" },
-            { id: "bibi", img: "Bibi", name: "БИБИ", rarity: "epic" },
-            { id: "bea", img: "Bea", name: "БИ", rarity: "epic" },
-            { id: "nani", img: "Nani", name: "НАНИ", rarity: "epic" },
-            { id: "edgar", img: "Edgar", name: "ЭДГАР", rarity: "epic" },
-            { id: "griff", img: "Griff", name: "ГРИФФ", rarity: "epic" },
-            { id: "grom", img: "Grom", name: "ГРОМ", rarity: "epic" },
-            { id: "bonnie", img: "Bonnie", name: "БОННИ", rarity: "epic" },
-            { id: "gale", img: "Gale", name: "ГЕЙЛ", rarity: "epic" },
-            { id: "colette", img: "Colette", name: "КОЛЕТТ", rarity: "epic" },
-            { id: "belle", img: "Belle", name: "БЕЛЛЬ", rarity: "epic" },
-            { id: "ash", img: "Ash", name: "ЭШ", rarity: "epic" },
-            { id: "lola", img: "Lola", name: "ЛОЛА", rarity: "epic" },
-            { id: "sam", img: "Sam", name: "СЭМ", rarity: "epic" },
-            { id: "mandy", img: "Mandy", name: "МЭНДИ", rarity: "epic" },
-            { id: "maisie", img: "Maisie", name: "МЭЙСИ", rarity: "epic" },
-            { id: "pearl", img: "Pearl", name: "ПЕРЛ", rarity: "epic" },
-            { id: "larry", img: "Larry-Lawrie", name: "ЛАРРИ", rarity: "epic" },
-            { id: "lawrie", img: "Larry-Lawrie", name: "ЛОРРИ", rarity: "epic" },
-            { id: "berry", img: "Berry", name: "БЕРРИ", rarity: "epic" },
-            { id: "angelo", img: "Angelo", name: "АНДЖЕЛО", rarity: "epic" },
-            { id: "hank", img: "Hank", name: "ХЭНК", rarity: "epic" },
-            { id: "charlie", img: "Charlie", name: "ШАРЛИ", rarity: "epic" },
-            { id: "juju", img: "Juju", name: "ДДЮДЖУ", rarity: "epic" },
-            { id: "mortis", img: "Mortis", name: "МОРТИС", rarity: "mythic" },
-            { id: "tara", img: "Tara", name: "ТАРА", rarity: "mythic" },
-            { id: "gene", img: "Gene", name: "ДДИН", rarity: "mythic" },
-            { id: "max", img: "Max", name: "МАКС", rarity: "mythic" },
-            { id: "mrp", img: "Mr-P", name: "МИСТЕР П", rarity: "mythic" },
-            { id: "sprout", img: "Sprout", name: "СПРАУТ", rarity: "mythic" },
-            { id: "byron", img: "Byron", name: "БАЙРОН", rarity: "mythic" },
-            { id: "squeak", img: "Squeak", name: "СКВИК", rarity: "mythic" },
-            { id: "lou", img: "Lou", name: "ЛУ", rarity: "mythic" },
-            { id: "ruffs", img: "Ruffs", name: "ГАВС", rarity: "mythic" },
-            { id: "buzz", img: "Buzz", name: "БАЗЗ", rarity: "mythic" },
-            { id: "fang", img: "Fang", name: "ФЭНГ", rarity: "mythic" },
-            { id: "eve", img: "Eve", name: "ИВ", rarity: "mythic" },
-            { id: "janet", img: "Janet", name: "ДДАНЕТ", rarity: "mythic" },
-            { id: "otis", img: "Otis", name: "ОТИС", rarity: "mythic" },
-            { id: "buster", img: "Buster", name: "БАСТЕР", rarity: "mythic" },
-            { id: "gray", img: "Gray", name: "ГРЭЙ", rarity: "mythic" },
-            { id: "rt", img: "R-T", name: "Р-Т", rarity: "mythic" },
-            { id: "willow", img: "Willow", name: "УИЛЛОУ", rarity: "mythic" },
-            { id: "doug", img: "Doug", name: "ДАГ", rarity: "mythic" },
-            { id: "chuck", img: "Chuck", name: "ЧАК", rarity: "mythic" },
-            { id: "mico", img: "Mico", name: "МИКО", rarity: "mythic" },
-            { id: "melodie", img: "Melodie", name: "МЕЛОДИ", rarity: "mythic" },
-            { id: "lily", img: "Lily", name: "ЛИЛИ", rarity: "mythic" },
-            { id: "clancy", img: "Clancy", name: "КЛЭНСИ", rarity: "mythic" },
-            { id: "moe", img: "Moe", name: "МО", rarity: "mythic" },
-            { id: "shade", img: "Grom", name: "ШЕЙД", rarity: "mythic" },
-            { id: "jup", img: "Otis", name: "ДЖАП", rarity: "mythic" },
-            { id: "finnegan", img: "Buster", name: "ФИННЕГАН", rarity: "mythic" },
-            { id: "copper", img: "Sam", name: "КОППЕР", rarity: "mythic" },
-            { id: "spike", img: "Spike", name: "СПАЙК", rarity: "legendary" },
-            { id: "crow", img: "Crow", name: "КРОУ", rarity: "legendary" },
-            { id: "leon", img: "Leon", name: "ЛЕОН", rarity: "legendary" },
-            { id: "sandy", img: "Sandy", name: "СЭНДИ", rarity: "legendary" },
-            { id: "amber", img: "Amber", name: "ЭМБЕР", rarity: "legendary" },
-            { id: "meg", img: "Meg", name: "МЕГ", rarity: "legendary" },
-            { id: "chester", img: "Chester", name: "ЧЕСТЕР", rarity: "legendary" },
-            { id: "cordelius", img: "Cordelius", name: "КОРДЕЛИУС", rarity: "legendary" },
-            { id: "kit", img: "Kit", name: "КИТ", rarity: "legendary" },
-            { id: "draco", img: "Draco", name: "ДРАКО", rarity: "legendary" },
-            { id: "surge", img: "Surge", name: "ВОЛЬТ", rarity: "legendary" },
-            { id: "kenji", img: "Kenji", name: "КЕНДЗИ", rarity: "legendary" },
-            { id: "ollie", img: "Buster", name: "ОЛЛИ", rarity: "legendary" },
-            /* Уникальные футуристичные концепты обновлений 2025-2026 годов (для ровного счета в 104) */
-            { id: "b1", img: "Shelly", name: "КСЕНОН", rarity: "rare" },
-            { id: "b2", img: "Colt", name: "ВЕКТОР", rarity: "rare" },
-            { id: "b3", img: "Bull", name: "МАГМА", rarity: "epic" },
-            { id: "b4", img: "Brock", name: "БЛИЦ", rarity: "epic" },
-            { id: "b5", img: "Nita", name: "ОРИОН", rarity: "mythic" },
-            { id: "b6", img: "Poco", name: "КОСМО", rarity: "mythic" },
-            { id: "b7", solid: true, img: "Rosa", name: "НЕОН", rarity: "legendary" },
-            { id: "b8", img: "Jessie", name: "КИБЕР", rarity: "legendary" },
-            { id: "b9", img: "Mortis", name: "ПЛАЗМА", rarity: "mythic" },
-            { id: "b10", img: "Tara", name: "АСТРА", rarity: "epic" },
-            { id: "b11", img: "Gene", name: "НЕБУЛА", rarity: "legendary" },
-            { id: "b12", img: "Max", name: "КВАНТ", rarity: "mythic" },
-            { id: "b13", img: "Spike", name: "ГЕЛИОС", rarity: "legendary" }
+            { id: "shelly", img: "shelly", name: "ШЕЛЛИ", rarity: "rare" },
+            { id: "colt", img: "colt", name: "КОЛЬТ", rarity: "rare" },
+            { id: "nita", img: "nita", name: "НИТА", rarity: "rare" },
+            { id: "bull", img: "bull", name: "bull", rarity: "rare" },
+            { id: "brock", img: "brock", name: "БРОК", rarity: "rare" },
+            { id: "elprimo", img: "el-primo", name: "ЭЛЬ ПРИМО", rarity: "rare" },
+            { id: "barley", img: "barley", name: "БАРЛИ", rarity: "rare" },
+            { id: "poco", img: "poco", name: "ПОКО", rarity: "rare" },
+            { id: "rosa", img: "rosa", name: "РОЗА", rarity: "rare" },
+            { id: "jessie", img: "jessie", name: "ДЖЕССИ", rarity: "rare" },
+            { id: "dynamike", img: "dynamike", name: "ДИНАМАЙК", rarity: "rare" },
+            { id: "tick", img: "tick", name: "ТИК", rarity: "rare" },
+            { id: "8bit", img: "8-bit", name: "8-БИТ", rarity: "rare" },
+            { id: "rico", img: "rico", name: "РИКО", rarity: "rare" },
+            { id: "darryl", img: "darryl", name: "ДЭРРИЛ", rarity: "rare" },
+            { id: "penny", img: "penny", name: "ПЕННИ", rarity: "rare" },
+            { id: "carl", img: "carl", name: "КАРЛ", rarity: "rare" },
+            { id: "jacky", img: "jacky", name: "ДЖЕКИ", rarity: "rare" },
+            { id: "gus", img: "gus", name: "ГАС", rarity: "rare" },
+            { id: "bo", img: "bo", name: "БО", rarity: "rare" },
+            { id: "emz", img: "emz", name: "ЭМЗ", rarity: "rare" },
+            { id: "stu", img: "stu", name: "СТЮ", rarity: "rare" },
+            { id: "piper", img: "piper", name: "ПАЙПЕР", rarity: "epic" },
+            { id: "pam", img: "pam", name: "ПЭМ", rarity: "epic" },
+            { id: "frank", img: "frank", name: "ФРЭНК", rarity: "epic" },
+            { id: "bibi", img: "bibi", name: "БИБИ", rarity: "epic" },
+            { id: "bea", img: "bea", name: "БИ", rarity: "epic" },
+            { id: "nani", img: "nani", name: "НАНИ", rarity: "epic" },
+            { id: "edgar", img: "edgar", name: "ЭДГАР", rarity: "epic" },
+            { id: "griff", img: "griff", name: "ГРИФФ", rarity: "epic" },
+            { id: "grom", img: "grom", name: "ГРОМ", rarity: "epic" },
+            { id: "bonnie", img: "bonnie", name: "БОННИ", rarity: "epic" },
+            { id: "gale", img: "gale", name: "ГЕЙЛ", rarity: "epic" },
+            { id: "colette", img: "colette", name: "КОЛЕТТ", rarity: "epic" },
+            { id: "belle", img: "belle", name: "БЕЛЛЬ", rarity: "epic" },
+            { id: "ash", img: "ash", name: "ЭШ", rarity: "epic" },
+            { id: "lola", img: "lola", name: "ЛОЛА", rarity: "epic" },
+            { id: "sam", img: "sam", name: "СЭМ", rarity: "epic" },
+            { id: "mandy", img: "mandy", name: "МЭНДИ", rarity: "epic" },
+            { id: "maisie", img: "maisie", name: "МЭЙСИ", rarity: "epic" },
+            { id: "pearl", img: "pearl", name: "ПЕРЛ", rarity: "epic" },
+            { id: "larry", img: "larry-&amp;-lawrie", name: "ЛАРРИ", rarity: "epic" },
+            { id: "berry", img: "berry", name: "БЕРРИ", rarity: "epic" },
+            { id: "angelo", img: "angelo", name: "АНДЖЕЛО", rarity: "epic" },
+            { id: "hank", img: "hank", name: "ХЭНК", rarity: "epic" },
+            { id: "charlie", img: "charlie", name: "ШАРЛИ", rarity: "epic" },
+            { id: "juju", img: "juju", name: "ДЖУДЖУ", rarity: "epic" },
+            { id: "mortis", img: "mortis", name: "МОРТИС", rarity: "mythic" },
+            { id: "tara", img: "tara", name: "ТАРА", rarity: "mythic" },
+            { id: "gene", img: "gene", name: "ДЖИН", rarity: "mythic" },
+            { id: "max", img: "max", name: "МАКС", rarity: "mythic" },
+            { id: "mrp", img: "mr-p", name: "МИСТЕР П", rarity: "mythic" },
+            { id: "sprout", img: "sprout", name: "СПРАУТ", rarity: "mythic" },
+            { id: "byron", img: "byron", name: "БАЙРОН", rarity: "mythic" },
+            { id: "squeak", img: "squeak", name: "СКВИК", rarity: "mythic" },
+            { id: "lou", img: "lou", name: "ЛУ", rarity: "mythic" },
+            { id: "ruffs", img: "colonel-ruffs", name: "ГАВС", rarity: "mythic" },
+            { id: "buzz", img: "buzz", name: "БАЗЗ", rarity: "mythic" },
+            { id: "fang", img: "fang", name: "ФЭНГ", rarity: "mythic" },
+            { id: "eve", img: "eve", name: "ИВ", rarity: "mythic" },
+            { id: "janet", img: "janet", name: "ДЖАНЕТ", rarity: "mythic" },
+            { id: "otis", img: "otis", name: "ОТИС", rarity: "mythic" },
+            { id: "buster", img: "buster", name: "БАСТЕР", rarity: "mythic" },
+            { id: "gray", img: "gray", name: "ГРЭЙ", rarity: "mythic" },
+            { id: "rt", img: "r-t", name: "Р-Т", rarity: "mythic" },
+            { id: "willow", img: "willow", name: "УИЛЛОУ", rarity: "mythic" },
+            { id: "doug", img: "doug", name: "ДАГ", rarity: "mythic" },
+            { id: "chuck", img: "chuck", name: "ЧАК", rarity: "mythic" },
+            { id: "mico", img: "mico", name: "МИКО", rarity: "mythic" },
+            { id: "melodie", img: "melodie", name: "МЕЛОДИ", rarity: "mythic" },
+            { id: "lily", img: "lily", name: "ЛИЛИ", rarity: "mythic" },
+            { id: "clancy", img: "clancy", name: "КЛЭНСИ", rarity: "mythic" },
+            { id: "moe", img: "moe", name: "МО", rarity: "mythic" },
+            { id: "shade", img: "shade", name: "ШЕЙД", rarity: "mythic" },
+            { id: "jup", img: "jup", name: "ДЖАП", rarity: "mythic" },
+            { id: "finnegan", img: "finnegan", name: "ФИННЕГАН", rarity: "mythic" },
+            { id: "copper", img: "copper", name: "КОППЕР", rarity: "mythic" },
+            { id: "spike", img: "spike", name: "СПАЙК", rarity: "legendary" },
+            { id: "crow", img: "crow", name: "КРОУ", rarity: "legendary" },
+            { id: "leon", img: "leon", name: "ЛЕОН", rarity: "legendary" },
+            { id: "sandy", img: "sandy", name: "СЭНДИ", rarity: "legendary" },
+            { id: "amber", img: "amber", name: "ЭМБЕР", rarity: "legendary" },
+            { id: "meg", img: "meg", name: "МЕГ", rarity: "legendary" },
+            { id: "chester", img: "chester", name: "ЧЕСТЕР", rarity: "legendary" },
+            { id: "cordelius", img: "cordelius", name: "КОРДЕЛИУС", rarity: "legendary" },
+            { id: "kit", img: "kit", name: "КИТ", rarity: "legendary" },
+            { id: "draco", img: "draco", name: "ДРАКО", rarity: "legendary" },
+            { id: "surge", img: "surge", name: "ВОЛЬТ", rarity: "legendary" },
+            { id: "kenji", img: "kenji", name: "КЕНДЗИ", rarity: "legendary" },
+            { id: "ollie", img: "ollie", name: "ОЛЛИ", rarity: "legendary" },
+            /* Концепты 2025-2026 годов с дефолтными заглушками, чтобы не ломать код */
+            { id: "b1", img: "shelly", name: "КСЕНОН", rarity: "rare" },
+            { id: "b2", img: "colt", name: "ВЕКТОР", rarity: "rare" },
+            { id: "b3", img: "bull", name: "МАГМА", rarity: "epic" },
+            { id: "b4", img: "brock", name: "БЛИЦ", rarity: "epic" },
+            { id: "b5", img: "nita", name: "ОРИОН", rarity: "mythic" },
+            { id: "b6", img: "poco", name: "КОСМО", rarity: "mythic" },
+            { id: "b7", img: "rosa", name: "НЕОН", rarity: "legendary" },
+            { id: "b8", img: "jessie", name: "КИБЕР", rarity: "legendary" },
+            { id: "b9", img: "mortis", name: "ПЛАЗМА", rarity: "mythic" },
+            { id: "b10", img: "tara", name: "АСТРА", rarity: "epic" },
+            { id: "b11", img: "gene", name: "НЕБУЛА", rarity: "legendary" },
+            { id: "b12", img: "max", name: "КВАНТ", rarity: "mythic" },
+            { id: "b13", img: "spike", name: "ГЕЛИОС", rarity: "legendary" }
         ];
 
         let currentTier = 0;
@@ -833,7 +818,7 @@
             
             if (roll < brawlerChance) { 
                 let brawler = poolBrawlers[Math.floor(Math.random() * poolBrawlers.length)];
-                img.src = `https://wsrv.nl/?url=cdn.brawlify.com/brawler/${brawler.img}.png`;
+                img.src = `https://cdn.brawlify.com/brawler/${brawler.img}.png`;
                 label.innerHTML = `✨ БОЕЦ: ${brawler.name} ✨`;
                 
                 if (!unlockedList.includes(brawler.id)) {
@@ -841,7 +826,6 @@
                 }
                 
                 alert(`Выпало: Новый Боец — ${brawler.name}!`);
-                console.log(`Выпало: Новый Боец — ${brawler.name}!`);
                 
                 if (brawler.rarity === 'legendary') playSound('legendary');
                 else playSound('upgrade', 3);
@@ -852,32 +836,26 @@
                 if (resourceRoll < 0.45) { 
                     let amt = (Math.floor(Math.random() * 151) + 50) * lootMultiplier;
                     coins += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-coin.png";
+                    img.src = "https://cdn.brawlify.com/currency/Coin.png";
                     label.innerHTML = `🪙 +${amt} МОНЕТ`;
                     playSound('upgrade', 1);
-                    
                     alert(`Выпало: Монеты x${amt}`);
-                    console.log(`Выпало: Монеты x${amt}`);
                 } 
                 else if (resourceRoll >= 0.45 && resourceRoll < 0.85) { 
                     let amt = (Math.floor(Math.random() * 81) + 20) * lootMultiplier;
                     powerPoints += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-combat-chunk.png";
+                    img.src = "https://cdn.brawlify.com/currency/Power-Points.png";
                     label.innerHTML = `🧬 +${amt} ОЧКОВ СИЛЫ`;
                     playSound('upgrade', 2);
-                    
                     alert(`Выпало: Очки силы x${amt}`);
-                    console.log(`Выпало: Очки силы x${amt}`);
                 } 
                 else {
                     let amt = (Math.floor(Math.random() * 21) + 5) * lootMultiplier;
                     gems += amt;
-                    img.src = "https://wsrv.nl/?url=cdn.brawlify.com/res-gem.png";
+                    img.src = "https://cdn.brawlify.com/currency/Gem.png";
                     label.innerHTML = `💎 +${amt} ГЕМОВ`;
                     playSound('upgrade', 3);
-                    
                     alert(`Выпало: Гемы x${amt}`);
-                    console.log(`Выпало: Гемы x${amt}`);
                 }
             }
             updateHUD();
@@ -925,13 +903,14 @@
             poolBrawlers.forEach(b => {
                 const isUnlocked = unlockedList.includes(b.id);
                 const statusClass = isUnlocked ? "" : "locked";
-                const imgUrl = "https://wsrv.nl/?url=cdn.brawlify.com/brawler/" + b.img + ".png";
+                const imgUrl = "https://cdn.brawlify.com/brawler/" + b.img + ".png";
                 
                 container.innerHTML += `
                     <div class="brawler-card-item ${b.rarity} ${statusClass}">
                         <div class="card-img-wrap">
-                            <img src="${imgUrl}" class="card-img" onerror="this.src='https://wsrv.nl/?url=cdn.brawlify.com/brawler/Shelly.png'">
+                            <img src="${imgUrl}" class="card-img" onerror="this.src='https://cdn.brawlify.com/brawler/shelly.png'">
                         </div>
+                        <div class="card-img-wrap" style="display:none;"></div>
                         <div class="card-name-text">${b.name}</div>
                     </div>
                 `;
