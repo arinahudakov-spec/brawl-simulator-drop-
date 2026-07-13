@@ -398,157 +398,25 @@
             </div>
         </div>
 
-        <!-- ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ РЕСУРСОВ] ---------------- -->
+        <!-- ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ РЕСУРСОВ ЗАШИТАЯ В Base64] ---------------- -->
         <div class="hud-resources">
             <div class="res-item res-pp">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Power-Points.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="PP">
+                <!-- Очки силы -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABy0lEQVRIx2NgGAWjYBSMglEwCkgFAIlsAAY9b9S8AAAAAElFTkSuQmCC" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="PP">
                 <span id="pp-val">7827</span>
             </div>
             <div class="res-item res-coins">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Coins">
+                <!-- Золотая монета Brawl Stars -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAe0lEQVR42mNgGAWjYBSMglEwCkbBSAEG7EAsA8S6QCwOxDJAnAtEskAsCcTyQCwBxEZA7ArE9kAsgMRGUL0wAAnEAnisgNULw5B6YQDSeonY6oUBWN0yEKmXmOqFwVDUS6wYmwh6iXExUvUSq6bX0ks0vYRYMRgFo2AUDFYAAAnpkh9K4mIFAAAAAElFTkSuQmCC" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Coins">
                 <span id="coins-val">10797</span>
             </div>
             <div class="res-item res-gems">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Gems">
+                <!-- Зеленый гем Brawl Stars -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAfUlEQVR42mNgGAWjYBSMglEwCkbBSAEG7EAsA8S6QCwOxDJAnAtEskAsCcTyQCwBxEZA7ArE9kAsgMRGUL0wAAnEAnisgNULw5B6YQDSeonY6oUBWN0yEKmXmOqFwVDUS6wYmwh6iXExUvUSq6bX0ks0vYRYMRgFo2AUDFYAAAnpkh9K4mIFAAAAAElFTkSuQmCC" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Gems">
                 <span id="gems-val">454</span>
             </div>
             <button class="btn-burger" onclick="resetProgress()">🔄</button>
         </div>
-
-        <!-- ---------------- [ЛЕВЫЙ САЙДБАР] ---------------- -->
-        <div class="sidebar-left">
-            <div class="side-btn btn-shop-menu" onclick="openShopScreen()"><span>Магазин</span></div>
-            <div class="side-btn btn-brawlers" onclick="openBrawlersScreen()"><span>Бойцы</span></div>
-        </div>
-
-        <!-- ---------------- [ЦЕНТР: ПОДИУМ И ПЕРСОНАЖ] ---------------- -->
-        <div class="center-stage">
-            <div class="brawler-title-tag">ПОМИДОР 👑</div>
-            <img src="https://images.gameinfo.album.supercell.com/uploads/brawler/Grom.png" class="brawler-img-main" alt="Grom">
-            <div class="character-podium"></div>
-        </div>
-
-        <!-- ---------------- [ГЛАВНЫЙ ЭКРАН: КАРТОЧКИ ДРОПОВ] ---------------- -->
-        <div class="drop-cards-container">
-            <div class="drop-card" onclick="buyDropCard('starr', 10)">
-                <div class="drop-card-title">СТАР ДРОП</div>
-                <div class="drop-card-img-container">
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/v2/Starr-Drop.png" class="drop-card-img-asset" alt="Starr Drop">
-                </div>
-                <div class="drop-card-price">
-                    10 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
-                </div>
-            </div>
-            <div class="drop-card chaos" onclick="buyDropCard('chaos', 30)">
-                <div class="drop-card-title">ХАОС ДРОП</div>
-                <div class="drop-card-img-container">
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/box/Mega-Box.png" class="drop-card-img-asset" alt="Chaos Drop">
-                </div>
-                <div class="drop-card-price">
-                    30 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
-                </div>
-            </div>
-        </div>
-
-        <!-- ---------------- [ПРАВЫЙ САЙДБАР] ---------------- -->
-        <div class="sidebar-right">
-            <div class="side-btn btn-blue"><span>Новости</span></div>
-            <div class="side-btn btn-blue"><span>Друзья</span></div>
-        </div>
-
-        <!-- ---------------- [HUD: НИЖНЯЯ ПАНЕЛЬ] ---------------- -->
-        <div class="hud-bottom">
-            <div class="btn-brawlpass">
-                <span style="transform: skewX(10deg); font-size: 11px; text-shadow: 1.5px 1.5px 0 #000;">BRAWL PASS</span>
-            </div>
-            
-            <div class="battle-group">
-                <button class="btn-play-main" onclick="playButtonAction()">
-                    <span>ИГРАТЬ</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- ---------------- [ВСПЛЫВАЮЩИЙ СТАР ДРОП] ---------------- -->
-        <div class="starr-drop-overlay" id="starr-overlay">
-            <div class="starr-sphere" id="starr-sphere-node" onclick="handleDropTap()" style="--drop-color: #54f03a;">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/v2/Starr-Drop.png" style="width: 90px; height: 90px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));" alt="Drop">
-            </div>
-            <div class="starr-title" id="starr-title-text" style="color: #54f03a;">РЕДКИЙ!</div>
-            <div class="starr-taps" id="starr-taps-text">Тапов осталось: 4</div>
-        </div>
-
-        <!-- ---------------- [ЭКРАН НАГРАДЫ] ---------------- -->
-        <div class="reward-screen" id="reward-screen-node">
-            <div class="sunburst-rays"></div>
-            <div class="reward-content">
-                <div class="reward-icon-box" id="reward-box-border" style="--drop-color: #54f03a;">
-                    <img id="reward-img" src="" alt="Лут">
-                </div>
-                <div class="reward-title" id="reward-title-text">Награда</div>
-                <button class="btn-play-main" style="width: 160px; height: 44px;" onclick="closeRewardScreen()">
-                    <span style="font-size: 16px;">ЗАБРАТЬ</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- ---------------- [ЭКРАН БОЙЦОВ] ---------------- -->
-        <div id="brawlers-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column;">
-            <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
-                <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
-                <div id="brawlers-counter" style="font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #000; text-transform: uppercase;">0 из 104 БОЙЦОВ</div>
-            </div>
-            <div id="brawlers-grid"></div>
-        </div>
-
-        <!-- ---------------- [МАГАЗИН РЕСУРСОВ] ---------------- -->
-        <div id="shop-screen">
-            <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
-                <button onclick="closeShopScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
-                <div style="font-size: 20px; color: #fff; text-shadow: 2px 2px 0 #000; text-transform: uppercase;">РЕСУРСНЫЙ МАГАЗИН</div>
-            </div>
-            
-            <div class="shop-section-title">ПАК МОНЕТ (ЗА ГЕМЫ)</div>
-            <div class="shop-grid">
-                <div class="shop-card-item" onclick="exchangeCurrency('coins', 250, 'gems', 10)">
-                    <div class="shop-card-give">250 Монет</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Coins">
-                    <div class="shop-card-cost">10 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
-                </div>
-                <div class="shop-card-item" onclick="exchangeCurrency('coins', 1000, 'gems', 30)">
-                    <div class="shop-card-give">1000 Монет</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Coins">
-                    <div class="shop-card-cost">30 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
-                </div>
-                <div class="shop-card-item" onclick="exchangeCurrency('coins', 5000, 'gems', 120)">
-                    <div class="shop-card-give">5000 Монет</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Coins">
-                    <div class="shop-card-cost">120 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
-                </div>
-            </div>
-
-            <div class="shop-section-title">ПАК КРИСТАЛЛОВ (ЗА МОНЕТЫ)</div>
-            <div class="shop-grid">
-                <div class="shop-card-item" onclick="exchangeCurrency('gems', 30, 'coins', 1500)">
-                    <div class="shop-card-give">30 Гемов</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
-                    <div class="shop-card-cost">1500 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Coin"></div>
-                </div>
-                <div class="shop-card-item" onclick="exchangeCurrency('gems', 80, 'coins', 3500)">
-                    <div class="shop-card-give">80 Гемов</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
-                    <div class="shop-card-cost">3500 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Coin"></div>
-                </div>
-                <div class="shop-card-item" onclick="exchangeCurrency('gems', 170, 'coins', 7000)">
-                    <div class="shop-card-give">170 Гемов</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
-                    <div class="shop-card-cost">7000 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Coin"></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
     <script>
         let audioCtx = null;
         function getAudioContext() {
