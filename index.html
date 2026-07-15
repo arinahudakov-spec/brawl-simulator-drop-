@@ -386,7 +386,6 @@
     <div class="game-wrapper" id="game-container">
         <div class="bg-pattern"></div>
 
-        <!-- ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ ПРОФИЛЯ] ---------------- -->
         <div class="hud-profile">
             <div class="profile-level-badge">37</div>
             <div class="avatar-box">
@@ -394,11 +393,10 @@
             </div>
             <div class="profile-text">
                 <div class="username">МАЙОНЕЗА</div>
-                <div class="trophies-badge">🏆 0</div>
+                <div class="trophies-badge"><img src="images/trophy.png" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;" alt="Trophy"> 0</div>
             </div>
         </div>
 
-        <!-- ---------------- [HUD: ВЕРХНЯЯ ПАНЕЛЬ РЕСУРСОВ] ---------------- -->
         <div class="hud-resources">
             <div class="res-item res-pp">
                 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Power-Points.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="PP">
@@ -415,20 +413,17 @@
             <button class="btn-burger" onclick="resetProgress()">🔄</button>
         </div>
 
-        <!-- ---------------- [ЛЕВЫЙ САЙДБАР] ---------------- -->
         <div class="sidebar-left">
             <div class="side-btn btn-shop-menu" onclick="openShopScreen()"><span>Магазин</span></div>
             <div class="side-btn btn-brawlers" onclick="openBrawlersScreen()"><span>Бойцы</span></div>
         </div>
 
-        <!-- ---------------- [ЦЕНТР: ПОДИУМ И ПЕРСОНАЖ] ---------------- -->
         <div class="center-stage">
             <div class="brawler-title-tag">ПОМИДОР 👑</div>
             <img src="https://images.gameinfo.album.supercell.com/uploads/brawler/Grom.png" class="brawler-img-main" alt="Grom">
             <div class="character-podium"></div>
         </div>
 
-        <!-- ---------------- [ГЛАВНЫЙ ЭКРАН: КАРТОЧКИ ДРОПОВ] ---------------- -->
         <div class="drop-cards-container">
             <div class="drop-card" onclick="buyDropCard('starr', 10)">
                 <div class="drop-card-title">СТАР ДРОП</div>
@@ -436,27 +431,25 @@
                     <img src="https://images.gameinfo.album.supercell.com/uploads/v2/Starr-Drop.png" class="drop-card-img-asset" alt="Starr Drop">
                 </div>
                 <div class="drop-card-price">
-                    10 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
+                    10 <img src="images/chaos_drop.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
                 </div>
             </div>
             <div class="drop-card chaos" onclick="buyDropCard('chaos', 30)">
                 <div class="drop-card-title">ХАОС ДРОП</div>
                 <div class="drop-card-img-container">
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/box/Mega-Box.png" class="drop-card-img-asset" alt="Chaos Drop">
+                    <img src="images/chaos_drop.png" class="drop-card-img-asset" alt="Chaos Drop">
                 </div>
                 <div class="drop-card-price">
-                    30 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
+                    30 <img src="images/chaos_drop.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
                 </div>
             </div>
         </div>
 
-        <!-- ---------------- [ПРАВЫЙ САЙДБАР] ---------------- -->
         <div class="sidebar-right">
             <div class="side-btn btn-blue"><span>Новости</span></div>
             <div class="side-btn btn-blue"><span>Друзья</span></div>
         </div>
 
-        <!-- ---------------- [HUD: НИЖНЯЯ ПАНЕЛЬ] ---------------- -->
         <div class="hud-bottom">
             <div class="btn-brawlpass">
                 <span style="transform: skewX(10deg); font-size: 11px; text-shadow: 1.5px 1.5px 0 #000;">BRAWL PASS</span>
@@ -469,7 +462,6 @@
             </div>
         </div>
 
-        <!-- ---------------- [ВСПЛЫВАЮЩИЙ СТАР ДРОП] ---------------- -->
         <div class="starr-drop-overlay" id="starr-overlay">
             <div class="starr-sphere" id="starr-sphere-node" onclick="handleDropTap()" style="--drop-color: #54f03a;">
                 <img src="https://images.gameinfo.album.supercell.com/uploads/v2/Starr-Drop.png" style="width: 90px; height: 90px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));" alt="Drop">
@@ -478,7 +470,6 @@
             <div class="starr-taps" id="starr-taps-text">Тапов осталось: 4</div>
         </div>
 
-        <!-- ---------------- [ЭКРАН НАГРАДЫ] ---------------- -->
         <div class="reward-screen" id="reward-screen-node">
             <div class="sunburst-rays"></div>
             <div class="reward-content">
@@ -492,7 +483,6 @@
             </div>
         </div>
 
-        <!-- ---------------- [ЭКРАН БОЙЦОВ] ---------------- -->
         <div id="brawlers-screen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a365d 0%, #0a192f 100%); z-index: 40; display: none; flex-direction: column;">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
                 <button id="close-brawlers-btn" onclick="closeBrawlersScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
@@ -501,7 +491,6 @@
             <div id="brawlers-grid"></div>
         </div>
 
-        <!-- ---------------- [МАГАЗИН РЕСУРСОВ] ---------------- -->
         <div id="shop-screen">
             <div style="display: flex; align-items: center; padding: 15px; gap: 20px;">
                 <button onclick="closeShopScreen()" style="background: #2e374d; border: 2.5px solid #000; color: #fff; font-size: 18px; padding: 5px 12px; cursor: pointer; border-radius: 8px; transform: skewX(-10deg);">⬅</button>
@@ -689,7 +678,7 @@
             { id: "otis", img: "Otis", name: "ОТИС", rarity: "mythic" },
             { id: "buster", img: "Buster", name: "БАСТЕР", rarity: "mythic" },
             { id: "gray", img: "Gray", name: "ГРЭЙ", rarity: "mythic" },
-            { id: "rt", img: "R-T", name: "Р-Т", rarity: "mythic" },
+            { id: "rt", img: "r-t", name: "Р-Т", rarity: "mythic" },
             { id: "willow", img: "Willow", name: "УИЛЛОУ", rarity: "mythic" },
             { id: "doug", img: "Doug", name: "ДАГ", rarity: "mythic" },
             { id: "chuck", img: "Chuck", name: "ЧАК", rarity: "mythic" },
