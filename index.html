@@ -46,7 +46,6 @@
             position: absolute;
             width: 100%; height: 100%;
             opacity: 0.05;
-            background-image: url('https://images.gameinfo.album.supercell.com/uploads/gamemode/Showdown.png');
             background-size: 85px;
             transform: rotate(-10deg) scale(1.1);
             pointer-events: none;
@@ -81,7 +80,7 @@
             box-shadow: 0 4px 0 rgba(0,0,0,0.4);
             z-index: 11;
         }
-        .avatar-img { width: 90%; height: 90%; object-fit: contain; transform: skewX(10deg); }
+        .avatar-img { width: 90%; height: 90%; object-fit: contain; transform: skewX(10deg); font-size: 24px; text-align: center; }
         
         .profile-text { display: flex; flex-direction: column; gap: 2px; margin-left: 4px; }
         .username { font-size: 16px; color: #fff; text-shadow: 2.5px 2.5px 0 #000; letter-spacing: 0.5px; text-transform: uppercase; }
@@ -156,6 +155,7 @@
             height: 195px; object-fit: contain;
             animation: idle-swim 2s ease-in-out infinite alternate;
             filter: drop-shadow(0 8px 10px rgba(0,0,0,0.5));
+            font-size: 50px;
         }
         .brawler-title-tag {
             background: linear-gradient(180deg, #9c27b0 0%, #6a1b9a 100%); 
@@ -224,6 +224,10 @@
         .drop-card-img-asset {
             height: 65px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); animation: drop-float 1.8s ease-in-out infinite alternate;
         }
+        /* Новый класс для увеличенного размера Хаос Дропа */
+        .chaos-size {
+            height: 85px !important;
+        }
         @keyframes drop-float {
             0% { transform: translateY(0); }
             100% { transform: translateY(-8px); }
@@ -237,6 +241,10 @@
             font-size: 14px;
             color: #ffce20;
             text-shadow: 2px 2px 0 #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         /* ---------------- [ИНТЕРФЕЙС STARR DROP (ВСПЛЫВАЮЩИЙ)] ---------------- */
@@ -389,7 +397,7 @@
         <div class="hud-profile">
             <div class="profile-level-badge">37</div>
             <div class="avatar-box">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/brawler/Shelly.png" class="avatar-img" alt="Ава">
+                <span class="avatar-img">👤</span>
             </div>
             <div class="profile-text">
                 <div class="username">МАЙОНЕЗА</div>
@@ -399,15 +407,15 @@
 
         <div class="hud-resources">
             <div class="res-item res-pp">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Power-Points.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="PP">
+                <span style="font-size: 20px; vertical-align: middle; margin-right: 5px;">🧬</span>
                 <span id="pp-val">7827</span>
             </div>
             <div class="res-item res-coins">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Coins">
+                <span style="font-size: 20px; vertical-align: middle; margin-right: 5px;">🪙</span>
                 <span id="coins-val">10797</span>
             </div>
             <div class="res-item res-gems">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Gems">
+                <img src="images/gem.png" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 5px; filter: drop-shadow(1.5px 1.5px 0px #000);" alt="Gems">
                 <span id="gems-val">454</span>
             </div>
             <button class="btn-burger" onclick="resetProgress()">🔄</button>
@@ -420,7 +428,7 @@
 
         <div class="center-stage">
             <div class="brawler-title-tag">ПОМИДОР 👑</div>
-            <img src="https://images.gameinfo.album.supercell.com/uploads/brawler/Grom.png" class="brawler-img-main" alt="Grom">
+            <span class="brawler-img-main">🤖</span>
             <div class="character-podium"></div>
         </div>
 
@@ -428,19 +436,19 @@
             <div class="drop-card" onclick="buyDropCard('starr', 10)">
                 <div class="drop-card-title">СТАР ДРОП</div>
                 <div class="drop-card-img-container">
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/v2/Starr-Drop.png" class="drop-card-img-asset" alt="Starr Drop">
+                    <span style="font-size: 55px; animation: drop-float 1.8s ease-in-out infinite alternate;">⭐</span>
                 </div>
                 <div class="drop-card-price">
-                    10 <img src="images/chaos_drop.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
+                    10 <img src="images/gem.png" style="width: 20px; height: 20px; vertical-align: middle; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
                 </div>
             </div>
             <div class="drop-card chaos" onclick="buyDropCard('chaos', 30)">
                 <div class="drop-card-title">ХАОС ДРОП</div>
                 <div class="drop-card-img-container">
-                    <img src="images/chaos_drop.png" class="drop-card-img-asset" alt="Chaos Drop">
+                    <img src="images/chaos_drop.png" class="drop-card-img-asset chaos-size" alt="Chaos Drop">
                 </div>
                 <div class="drop-card-price">
-                    30 <img src="images/chaos_drop.png" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 2px; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
+                    30 <img src="images/gem.png" style="width: 20px; height: 20px; vertical-align: middle; filter: drop-shadow(1px 1px 0px #000);" alt="Gem">
                 </div>
             </div>
         </div>
@@ -464,7 +472,7 @@
 
         <div class="starr-drop-overlay" id="starr-overlay">
             <div class="starr-sphere" id="starr-sphere-node" onclick="handleDropTap()" style="--drop-color: #54f03a;">
-                <img src="https://images.gameinfo.album.supercell.com/uploads/v2/Starr-Drop.png" style="width: 90px; height: 90px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));" alt="Drop">
+                <span style="font-size: 65px;">⭐</span>
             </div>
             <div class="starr-title" id="starr-title-text" style="color: #54f03a;">РЕДКИЙ!</div>
             <div class="starr-taps" id="starr-taps-text">Тапов осталось: 4</div>
@@ -501,18 +509,18 @@
             <div class="shop-grid">
                 <div class="shop-card-item" onclick="exchangeCurrency('coins', 250, 'gems', 10)">
                     <div class="shop-card-give">250 Монет</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Coins">
-                    <div class="shop-card-cost">10 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
+                    <span style="font-size: 40px;">🪙</span>
+                    <div class="shop-card-cost">10 <img src="images/gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('coins', 1000, 'gems', 30)">
                     <div class="shop-card-give">1000 Монет</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Coins">
-                    <div class="shop-card-cost">30 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
+                    <span style="font-size: 40px;">🪙</span>
+                    <div class="shop-card-cost">30 <img src="images/gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('coins', 5000, 'gems', 120)">
                     <div class="shop-card-give">5000 Монет</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Coins">
-                    <div class="shop-card-cost">120 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
+                    <span style="font-size: 40px;">🪙</span>
+                    <div class="shop-card-cost">120 <img src="images/gem.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Gem"></div>
                 </div>
             </div>
 
@@ -520,18 +528,18 @@
             <div class="shop-grid">
                 <div class="shop-card-item" onclick="exchangeCurrency('gems', 30, 'coins', 1500)">
                     <div class="shop-card-give">30 Гемов</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
-                    <div class="shop-card-cost">1500 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Coin"></div>
+                    <img src="images/gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
+                    <div class="shop-card-cost">1500 <span style="font-size: 16px; vertical-align: middle; margin-left: 3px;">🪙</span></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('gems', 80, 'coins', 3500)">
                     <div class="shop-card-give">80 Гемов</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
-                    <div class="shop-card-cost">3500 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Coin"></div>
+                    <img src="images/gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
+                    <div class="shop-card-cost">3500 <span style="font-size: 16px; vertical-align: middle; margin-left: 3px;">🪙</span></div>
                 </div>
                 <div class="shop-card-item" onclick="exchangeCurrency('gems', 170, 'coins', 7000)">
                     <div class="shop-card-give">170 Гемов</div>
-                    <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
-                    <div class="shop-card-cost">7000 <img src="https://images.gameinfo.album.supercell.com/uploads/currency/Coin.png" style="width: 18px; height: 18px; vertical-align: middle; margin-left: 3px;" alt="Coin"></div>
+                    <img src="images/gem.png" style="width: 48px; height: 48px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));" alt="Gems">
+                    <div class="shop-card-cost">7000 <span style="font-size: 16px; vertical-align: middle; margin-left: 3px;">🪙</span></div>
                 </div>
             </div>
         </div>
@@ -883,7 +891,7 @@
                 container.innerHTML += `
                     <div class="brawler-card-item ${b.rarity} ${statusClass}">
                         <div class="card-img-wrap">
-                            <img src="${imgUrl}" class="card-img" onerror="this.src='https://images.gameinfo.album.supercell.com/uploads/brawler/Shelly.png'">
+                            <span style="font-size:30px;">👤</span>
                         </div>
                         <div class="card-name-text">${b.name}</div>
                     </div>
